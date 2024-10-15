@@ -1,0 +1,49 @@
+.parameters__styles{
+    padding-top: 20px;
+}
+
+.parameters__title{
+    font-size: var(--fz-per-medium);
+    font-weight: 600;
+    width: 100%;
+    position: relative;
+}
+
+.parameters__title::before{
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translate(50%, -50%);
+    background-image: url("../../../../app//static/icons/arrow.svg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    width: 11.5px;
+    height: 6.5px;
+    transition: transform .3s ease;
+    cursor: pointer;
+}
+
+.active{
+    margin-bottom: 20px;
+}
+
+.active::before{
+    transform: translate(50%, -50%) rotate(180deg);
+}
+
+.parameters__styles{
+    height: fit-content;
+    margin-bottom: 24px;
+}
+
+.styles__list{
+    display: flex;
+    flex-direction: column;
+    row-gap: 22.5px;
+}
+
+.styles__item{
+    font-size: 16px;
+}

@@ -1,0 +1,22 @@
+.brands{
+    padding: 42px 0;
+    background-color: var(--black);
+    margin-bottom: 50px;
+}
+
+.brands__list{
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 30px;
+}
+
+@media screen and (min-width: 992px){
+    .brands{
+        margin-bottom: 72px;
+    }
+
+    .brands__list{
+        justify-content: space-between;
+    }
+}

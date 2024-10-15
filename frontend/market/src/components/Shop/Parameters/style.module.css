@@ -1,0 +1,168 @@
+.parameters{
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: fit-content;
+    background-color: #fff;
+    transform: translateY(100%);
+    transition: transform 0.3s ease-in-out;
+    z-index: 3;
+    padding: 20px 24px;
+    display: flex;
+    flex-direction: column;
+}
+  
+.parameters__background{
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.3);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease-in-out;
+    z-index: 2; 
+}
+
+.parameters__header{
+    border-bottom: 2px solid #00000010;
+}
+
+.parameters__header{
+    display: flex;
+}
+  
+.visible{
+    transform: translateY(0);
+
+}
+  
+.visible__background{
+    opacity: 1;
+    visibility: visible;
+}
+
+.parameters__title,
+.header__title{
+    font-size: var(--fz-per-medium);
+    font-weight: 600;
+    width: 100%;
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.parameters__title::before{
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-image: url("../../../app//static/icons/arrow.svg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    width: 11.5px;
+    height: 6.5px;
+}
+
+.parameters__icon{
+    width: 0;
+    height: 0;
+}
+
+.close__icon{
+    width: 15px;
+    height: 15px;
+}
+
+.types__list{
+    display: flex;
+    flex-direction: column;
+    gap: 22.5px;
+    color: var(--text-color-darkened);
+}
+
+.types__item{
+    position: relative;
+    
+}
+
+.types__item::before{
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-image: url("../../../app//static/icons/arrow.svg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    width: 11.5px;
+    height: 6.5px;
+    rotate: 90deg;
+    transition: transform .3 ease;
+}
+
+.active::before{
+    transform: rotate(90deg);
+}
+
+.parameters__sizes{
+
+}
+
+.sizes__list{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.sizes__item{
+    width: fit-content;
+    background-color: var(--gray);
+    padding: 10px 20px;
+    border-radius: 62px;
+    cursor: pointer;
+
+}
+
+.parameters__button{
+    width: 100%;
+    height: 48px;
+    background-color: var(--black);
+    color: var(--white);
+    border-radius: 62px;
+    cursor: pointer;
+    transition: transform .3s ease;
+}
+
+.parameters__button:hover{
+    transform: scale(1.04);
+}
+
+
+@media screen and (min-width: 992px) {
+    .parameters{
+        position: relative;
+        width: 300px;
+        height: fit-content;
+        border: 2px solid #00000010;
+        border-radius: 20px;
+        padding: 20px 24px;
+    }
+
+    .parameters__background{
+        width: fit-content;
+    }
+
+    .parameters__icon{
+        width: 20px;
+        height: 18px;
+    }
+
+    .close__icon{
+        width: 0;
+        height: 0;
+    }
+}
+  

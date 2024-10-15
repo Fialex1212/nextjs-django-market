@@ -1,0 +1,111 @@
+.email{
+    position: relative;
+    z-index: 1;
+}
+
+.email::before{
+    content: "";
+    position: absolute;
+    background-color: var(--gray);
+    display: block;
+    width: 100%;
+    height: 50%;
+    bottom: 0;
+    z-index: -1;
+}
+
+.input__inner{
+    position: relative;
+}
+
+.input__inner::before{
+    content: '';
+    position: absolute;
+    bottom: 50%;
+    left: 0;
+    transform: translate(50%, 50%);
+    z-index: 1;
+    width: 17px;
+    height: 13px;
+    background-image: url("../../app/static/icons/footer/email.svg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+.email__sender{
+    padding: 32px 24px;
+    background-color: var(--black);
+    color: var(--white);
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.email__title{
+    font-size: var(--fz-xlarge);
+    margin-bottom: 32px;
+    font-weight: 800;
+}
+
+.email__form{
+    width: fit-content;
+    display: flex;
+    flex-direction: column;
+    row-gap: 12px;
+}
+
+.email__input{
+    position: relative;
+    background-color: var(--white);
+    color: var(--black);
+    width: 310px;
+    border-radius: 62px;
+    height: 42px;
+    padding-left: 42px;
+}
+
+.email__input::after{
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 15px;
+    top: 50%;
+    left: 20px; 
+    transform: translateY(-50%);
+    background-image: url("../../app/static/icons/footer/email.svg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    z-index: 2;
+}
+
+.email__button{
+    background-color: var(--white);
+    color: var(--black);
+    width: 310px;
+    border-radius: 62px;
+    height: 42px;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+@media screen and (min-width: 768px){
+    .email__sender{
+        flex-direction: row;
+        padding: 44px 64px;
+        justify-content: space-between;
+    }
+
+    .email__title{
+        width: 551px;
+        margin-bottom: 0;
+    }
+
+    .input__inner::before{
+        width: 20px;
+        height: 16px;
+    }
+}
