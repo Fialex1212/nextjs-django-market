@@ -31,24 +31,53 @@
 
 .header__item{
     position: relative;
-    
 }
 
 .header__link{
     text-decoration: none;    
 }
 
+.header__button{
+    cursor: pointer;
+    z-index: 3;
+    padding-right: 10px;
+}
+
+.header__button::before{
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translate(50%, -50%);
+    background-image: url("../../app/static/icons/arrow.svg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    width: 11.5px;
+    height: 6.5px;
+    transition: transform .3s ease;
+    cursor: pointer;
+}
+
+.active::before{
+    transform: translate(50%, -50%) rotate(180deg);
+}
+
 .dropdown__list{
     position: absolute;
-    display: flex;
     width: 0;
     height: 0;
+    top: 100%;
     overflow: hidden;
 }
 
-.dropdown__active{
-    width: 100px;
-    height: 100px;
+.active{
+    width: fit-content;
+    height: fit-content;
+    display: flex;
+    gap: 10px;
+    flex-direction: column;
+    color: var(--black);
 }
 
 .icon{

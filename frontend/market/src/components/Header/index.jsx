@@ -12,14 +12,19 @@ import { headerData, headerDropMenu, headerInterface } from "./utils";
 
 import cn from "classnames";
 
-
 const Header = () => {
   const [isDropDownMenu, setIsDropDownMenu] = useState(false);
+  const [isSidebarDropDownMenu, setIsSidebarDropDownMenu] = useState(false);
   const [isSidebarVisible, setIsSidebarVisible] = useState(false);
 
   const toggelDropDown = () => {
-    setIsDropDownMenu((prev) => !prev);
+    setIsDropDownMenu(!isDropDownMenu);
+    console.log("swithc drop down");
   };
+
+  const toggelSidebarDropDown = () => {
+    setIsSidebarDropDownMenu(!isSidebarDropDownMenu)
+  }
 
   const toggleSidebar = () => {
     setIsSidebarVisible(!isSidebarVisible);
@@ -42,6 +47,9 @@ const Header = () => {
             <Sidebar
               toggleSidebar={toggleSidebar}
               isVisible={isSidebarVisible}
+              isSideBarDropDownMenu={isSidebarDropDownMenu}
+              setIsSideBarDropDownMenu={setIsSidebarDropDownMenu}
+              toggelSidebarDropDown={toggelSidebarDropDown}
             />
             <button
               onClick={toggleSidebar}
@@ -55,8 +63,19 @@ const Header = () => {
             </Link>
             <ul className={css.header__list}>
               <li className={css.header__item}>
-                <button onClick={toggelDropDown}>Shop</button>
-                <ul className={css.dropdown__list}>
+                <button
+                  className={cn(css.header__button, {
+                    [css.active]: isDropDownMenu,
+                  })}
+                  onClick={toggelDropDown}
+                >
+                  Shop
+                </button>
+                <ul
+                  className={cn(css.dropdown__list, {
+                    [css.active]: isDropDownMenu,
+                  })}
+                >
                   {headerDropMenu.map(({ name, slug }, index) => (
                     <li className={css.dropdown__item} key={index}>
                       <Link href={slug}>{name}</Link>
@@ -66,7 +85,9 @@ const Header = () => {
               </li>
               {headerData.map(({ name, slug }, id) => (
                 <li className={css.header__item} key={id}>
-                  <Link className={css.header__link} href={slug}>{name}</Link>
+                  <Link className={css.header__link} href={slug}>
+                    {name}
+                  </Link>
                 </li>
               ))}
             </ul>

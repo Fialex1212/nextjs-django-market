@@ -15,6 +15,8 @@
 }
 
 .sidebar__menu{
+  display: flex;
+  justify-content: space-between;
   width: 320px;
   height: 100vh;
   background-color: #f8f9fa;
@@ -22,55 +24,88 @@
   transform: translateX(-100%);
   transition: transform 0.3s ease;
 }
+
+.sidebar__close{
+  background-image: url("../../../app/static/icons/close.svg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  width: 20px;
+  height: 20px;
+}
   
 .show {
   transform: translateX(0); 
 }
   
-  .sidebar__list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
+.sidebar__list{
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
   
-  .sidebar__item {
-    margin-bottom: 10px;
-  }
+.sidebar__item,
+.sidebar__item a{
+  position: relative;
+  margin-bottom: 10px;
+  text-decoration: none;
+}
   
-  .sidebar__link {
-    text-decoration: none;
-    color: #333;
-    display: block;
-    padding: 10px 15px;
-    border-radius: 4px;
-    transition: background-color 0.3s ease;
-  }
-  
-  .sidebar__link:hover {
-    background-color: #e9ecef;
-  }
-  
-  .menuButton {
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    padding: 10px 20px;
-    cursor: pointer;
-    border-radius: 4px;
-    transition: background-color 0.3s ease;
-  }
-  
-  .menuButton:hover {
-    background-color: #0056b3;
-  }
-  
-  .layout {
-    display: flex;
-  }
-  
-  .content {
-    margin-left: 250px;
-    padding: 20px;
-    flex-grow: 1;
-  }
+.sidebar__link{
+  text-decoration: none;
+  color: #333;
+  display: block;
+  padding: 10px 15px;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+.sidebar__link:hover{
+  background-color: #e9ecef;
+}
+
+
+.header__button{
+  cursor: pointer;
+  z-index: 3;
+  padding-right: 10px;
+}
+
+.header__button::before{
+  content: "";
+  position: absolute;
+  top: 10px;
+  left: 40%;
+  transform: translate(50%, -50%);
+  background-image: url("../../../app/static/icons/arrow.svg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  width: 11.5px;
+  height: 6.5px;
+  transition: transform .3s ease;
+  cursor: pointer;
+}
+
+.active::before{
+  transform: translate(50%, -50%) rotate(180deg);
+}
+
+.dropdown__list{
+  width: 0;
+  height: 0;
+  top: 100%;
+  overflow: hidden;
+  padding-left: 20px;
+}
+
+.active{
+  width: fit-content;
+  height: fit-content;
+  display: flex;
+  gap: 10px;
+  flex-direction: column;
+  color: var(--black);
+  margin-bottom: 10px;
+}
   

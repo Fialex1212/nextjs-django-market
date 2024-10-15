@@ -5,7 +5,7 @@ import css from "./style.module.css";
 import Image from "next/image";
 import cn from "classnames";
 
-import parametersIcon from "@/app/static/icons/shop/parameters.svg";
+import filtersIcon from "@/app/static/icons/shop/filters.svg";
 import closeIcon from "@/app/static/icons/shop/close.svg";
 
 import Colors from "./Colors";
@@ -14,7 +14,7 @@ import Sizes from "./Sizes";
 import Styles from "./Styles";
 import Types from "./Types";
 
-const Parameters = ({ toggleParameters, isParametersVisilbe }) => {
+const Filters = ({ toggleFilters, isFiltersVisilbe }) => {
   const [activeType, setActiveType] = useState("");
   const [activeSubType, setActiveSubType] = useState("");
   const [isPriceOpen, setIsPriceOpen] = useState(false);
@@ -27,23 +27,23 @@ const Parameters = ({ toggleParameters, isParametersVisilbe }) => {
   return (
     <>
       <div
-        className={cn(css.parameters__background, {
-          [css.visible__background]: isParametersVisilbe,
+        className={cn(css.filters__background, {
+          [css.visible__background]: isFiltersVisilbe,
         })}
       ></div>
       <div
-        className={cn(css.parameters, {
-          [css.visible]: isParametersVisilbe,
+        className={cn(css.filters, {
+          [css.visible]: isFiltersVisilbe ,
         })}
       >
-        <div className={css.parameters__header}>
+        <div className={css.filters__header}>
           <h4 className={css.header__title}>Filters</h4>
           <Image
-            className={css.parameters__icon}
-            src={parametersIcon}
+            className={css.filters__icon}
+            src={filtersIcon}
             alt="fillters icon"
           />
-          <button className={css.parameters__close} onClick={toggleParameters}>
+          <button className={css.filters__close} onClick={toggleFilters}>
             <Image
               className={css.close__icon}
               src={closeIcon}
@@ -71,10 +71,10 @@ const Parameters = ({ toggleParameters, isParametersVisilbe }) => {
           activeSubType={activeSubType}
           setActiveSubType={setActiveSubType}
         />
-        <button className={css.parameters__button}>Apply Filter</button>
+        <button className={css.filters__button}>Apply Filters</button>
       </div>
     </>
   );
 };
 
-export default Parameters;
+export default Filters;

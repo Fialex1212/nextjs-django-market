@@ -4,7 +4,7 @@ import css from "./style.module.css";
 import { productsData } from "../utils";
 import Image from "next/image";
 import { useState } from "react";
-import parametersIcon from "@/app/static/icons/shop/parametersMobile.svg";
+import filtersIcon from "@/app/static/icons/shop/filtersMobile.svg";
 import cn from "classnames";
 
 const Products = ({ toggleParameters }) => {
@@ -49,7 +49,7 @@ const Products = ({ toggleParameters }) => {
           </ul>
         )}
         <Image
-          src={parametersIcon}
+          src={filtersIcon}
           alt="parameters icon"
           onClick={toggleParameters}
         />

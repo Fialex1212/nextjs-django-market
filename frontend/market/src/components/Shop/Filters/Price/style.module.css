@@ -1,27 +1,21 @@
-.parameters__types{
-    padding-bottom: 20px;
-    padding-top: 20px;
+.filters__price{
+    padding: 20px 0;
     border-bottom: 2px solid #00000010;
 }
 
-.types__list{
-    display: flex;
-    flex-direction: column;
-    gap: 22.5px;
-    color: var(--text-color-darkened);
-}
-
-.types__item{
+.filters__title{
+    font-size: var(--fz-per-medium);
+    font-weight: 600;
+    width: 100%;
     position: relative;
-    
 }
 
-.types__item::before{
+.filters__title::before{
     content: "";
     position: absolute;
     top: 50%;
     right: 0;
-    transform: translate(-50%, 50%);
+    transform: translate(50%, -50%);
     background-image: url("../../../../app//static/icons/arrow.svg");
     background-position: center;
     background-repeat: no-repeat;
@@ -30,9 +24,12 @@
     height: 6.5px;
     transition: transform .3s ease;
     cursor: pointer;
-    rotate: 90deg;
+}
+
+.active{
+    margin-bottom: 20px;
 }
 
 .active::before{
-    transform: translate(-50%, 50%) rotate(90deg);
+    transform: translate(50%, -50%) rotate(180deg);
 }

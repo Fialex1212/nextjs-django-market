@@ -8,8 +8,8 @@ const Price = ({ isPriceOpen, setIsPriceOpen }) => {
   };
 
   return (
-    <div className={css.parameters__price} onClick={(e) => togglePrice(e)}>
-      <h4 className={cn(css.parameters__title, { [css.active]: isPriceOpen })}>Price</h4>
+    <div className={css.filters__price} onClick={(e) => togglePrice(e)}>
+      <h4 className={cn(css.filters__title, { [css.active]: isPriceOpen })}>Price</h4>
       {isPriceOpen && <div>100$-500$</div>}
     </div>
   );

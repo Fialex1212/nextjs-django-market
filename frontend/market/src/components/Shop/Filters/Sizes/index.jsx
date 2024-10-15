@@ -25,8 +25,8 @@ const Sizes = ({
   };
 
   return (
-    <div className={css.parameters__sizes} onClick={toggleSizes}>
-      <h4 className={cn(css.parameters__title, { [css.active]: isSizesOpen })}>Sizes</h4>
+    <div className={css.filters__sizes} onClick={toggleSizes}>
+      <h4 className={cn(css.filters__title, { [css.active]: isSizesOpen })}>Sizes</h4>
       {isSizesOpen && (
         <ul className={css.sizes__list}>
           {sizesData.map(({ name }, index) => (

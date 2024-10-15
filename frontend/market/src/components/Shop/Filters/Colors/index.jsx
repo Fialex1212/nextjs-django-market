@@ -7,7 +7,7 @@ const Colors = ({
   isColorsOpen,
   setIsColorsOpen,
   selectedColors,
-  setSelectedColors
+  setSelectedColors,
 }) => {
   const darkenColor = (color) => {
     let num = parseInt(color, 16);
@@ -36,8 +36,8 @@ const Colors = ({
   };
 
   return (
-    <div className={css.parameters__colors} onClick={toggleColors}>
-      <h4 className={cn(css.parameters__title, { [css.active]: isColorsOpen })}>
+    <div className={css.filters__colors} onClick={toggleColors}>
+      <h4 className={cn(css.filters__title, { [css.active]: isColorsOpen })}>
         Colors
       </h4>
       {isColorsOpen && (

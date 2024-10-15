@@ -1,4 +1,4 @@
-.parameters{
+.filters{
     position: fixed;
     bottom: 0;
     left: 0;
@@ -13,7 +13,7 @@
     flex-direction: column;
 }
   
-.parameters__background{
+.filters__background{
     position: fixed;
     top: 0;
     left: 0;
@@ -26,11 +26,11 @@
     z-index: 2; 
 }
 
-.parameters__header{
+.filters__header{
     border-bottom: 2px solid #00000010;
 }
 
-.parameters__header{
+.filters__header{
     display: flex;
 }
   
@@ -44,7 +44,7 @@
     visibility: visible;
 }
 
-.parameters__title,
+.filters__title,
 .header__title{
     font-size: var(--fz-per-medium);
     font-weight: 600;
@@ -53,7 +53,7 @@
     margin-bottom: 20px;
 }
 
-.parameters__title::before{
+.filters__title::before{
     content: "";
     position: absolute;
     top: 0;
@@ -66,7 +66,7 @@
     height: 6.5px;
 }
 
-.parameters__icon{
+.filters__icon{
     width: 0;
     height: 0;
 }
@@ -107,10 +107,6 @@
     transform: rotate(90deg);
 }
 
-.parameters__sizes{
-
-}
-
 .sizes__list{
     display: flex;
     flex-wrap: wrap;
@@ -126,7 +122,7 @@
 
 }
 
-.parameters__button{
+.filters__button{
     width: 100%;
     height: 48px;
     background-color: var(--black);
@@ -136,13 +132,13 @@
     transition: transform .3s ease;
 }
 
-.parameters__button:hover{
+.filters__button:hover{
     transform: scale(1.04);
 }
 
 
 @media screen and (min-width: 992px) {
-    .parameters{
+    .filters{
         position: relative;
         width: 300px;
         height: fit-content;
@@ -151,11 +147,11 @@
         padding: 20px 24px;
     }
 
-    .parameters__background{
+    .filters__background{
         width: fit-content;
     }
 
-    .parameters__icon{
+    .filters__icon{
         width: 20px;
         height: 18px;
     }

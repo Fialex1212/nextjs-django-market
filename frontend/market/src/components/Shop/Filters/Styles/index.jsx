@@ -11,8 +11,8 @@ const Styles = ({isStylesOpen, setIsStylesOpen}) => {
   };
 
   return (
-    <div className={css.parameters__styles} onClick={toggleStyles}>
-      <h4 className={cn(css.parameters__title, { [css.active]: isStylesOpen })}>Dress Style</h4>
+    <div className={css.filters__styles} onClick={toggleStyles}>
+      <h4 className={cn(css.filters__title, { [css.active]: isStylesOpen })}>Dress Style</h4>
       {isStylesOpen && (
         <ul className={css.styles__list}>
           {stylesData.map(({ name }, index) => (

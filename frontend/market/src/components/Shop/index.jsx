@@ -1,22 +1,22 @@
 "use client"
 
 import { useState, useEffect } from "react";
-import Parameters from "./Parameters";
+import Filters from "./Filters";
 import Products from "./Products";
 import css from "./style.module.css";
 import toast, { Toaster } from "react-hot-toast";
 
 const Shop = () => {
-  const [isParametersVisilbe, setIsParametersVisible] = useState(false);
+  const [isFiltersVisilbe, setIsFiltersVisible] = useState(false);
 
-  const toggleParameters = () => setIsParametersVisible(!isParametersVisilbe);
+  const toggleFilters = () => setIsFiltersVisible(!isFiltersVisilbe);
 
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth >= 992) {
-        setIsParametersVisible(true);
+        setIsFiltersVisible(true);
       } else {
-        setIsParametersVisible(false);
+        setIsFiltersVisible(false);
       }
     };
     handleResize();
@@ -28,8 +28,8 @@ const Shop = () => {
     <section>
       <div className="container">
         <div className={css.shop__inner}>
-          <Parameters toggleParameters={toggleParameters} isParametersVisilbe={isParametersVisilbe} />
-          <Products toggleParameters={toggleParameters} />
+          <Filters toggleFilters={toggleFilters} isFiltersVisilbe={isFiltersVisilbe} />
+          <Products toggleFilters={toggleFilters} />
           <Toaster />
         </div>
       </div>

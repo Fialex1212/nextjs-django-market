@@ -28,7 +28,7 @@ const Types = ({
   };
 
   return (
-    <div className={css.parameters__types}>
+    <div className={css.filters__types}>
       <ul className={css.types__list}>
         {clothingTypes.map(({ type, subFields }) => (
           <li key={type}>

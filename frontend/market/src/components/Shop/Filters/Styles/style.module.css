@@ -1,16 +1,17 @@
-.parameters__price{
-    padding: 20px 0;
-    border-bottom: 2px solid #00000010;
+.filters__styles{
+    padding-top: 20px;
+    height: fit-content;
+    margin-bottom: 24px;
 }
 
-.parameters__title{
+.filters__title{
     font-size: var(--fz-per-medium);
     font-weight: 600;
     width: 100%;
     position: relative;
 }
 
-.parameters__title::before{
+.filters__title::before{
     content: "";
     position: absolute;
     top: 50%;
@@ -32,4 +33,14 @@
 
 .active::before{
     transform: translate(50%, -50%) rotate(180deg);
+}
+
+.styles__list{
+    display: flex;
+    flex-direction: column;
+    row-gap: 22.5px;
+}
+
+.styles__item{
+    font-size: 16px;
 }
