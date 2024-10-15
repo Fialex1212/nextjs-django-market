@@ -73,7 +73,7 @@ const Header = () => {
                 </button>
                 <ul
                   className={cn(css.dropdown__list, {
-                    [css.active]: isDropDownMenu,
+                    [css.active__dropdown]: isDropDownMenu,
                   })}
                 >
                   {headerDropMenu.map(({ name, slug }, index) => (
