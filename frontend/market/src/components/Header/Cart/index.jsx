@@ -1,16 +1,19 @@
 import css from "./style.module.css";
-import cart from "@/app/static/icons/header/cart.svg";
+import cartIcon from "@/app/static/icons/header/cart.svg";
 import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
+import useCart from "@/hooks/useCart";
 
 const Cart = () => {
   const [cartItems, setCartItems] = useState(9)
+  const {cart} = useCart()
+
 
   return (
-    <div className={css.cart}>
+    <div className={css.cart} data-cart={cart.length >=9 ? ("9+") : (cart.length)}>
       <Link  href="/cart">
-        <Image className={css.cart__img} src={cart} alt="cart" />
+        <Image className={css.cart__img} src={cartIcon} alt="cart" />
       </Link>
     </div>
   );

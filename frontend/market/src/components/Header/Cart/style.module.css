@@ -5,14 +5,18 @@
 }
 
 .cart::before{
+    content: attr(data-cart);
     position: absolute;
-    width: 10px;
-    height: 10px;
-    background-color: red;
+    width: 16px;
+    height: 16px;
+    border-radius: 10px;
+    background-color: rgb(0, 0, 0);
     color: var(--white);
-    left: 0;
-    right: 0;
-    bottom: 0;
-    top: 0;
+    right: -8px;
+    top: -5px;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
