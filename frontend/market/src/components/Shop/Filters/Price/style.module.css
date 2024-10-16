@@ -33,3 +33,7 @@
 .active::before{
     transform: translate(50%, -50%) rotate(180deg);
 }
+
+.rs-slider-progress-bar{
+    background-color: var(--black) !important;
+}

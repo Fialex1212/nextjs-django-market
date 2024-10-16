@@ -95,7 +95,7 @@ const Header = () => {
           <div className={css.header__interface}>
             <Search />
             <Cart />
-            <Link href="/">
+            <Link href="/login">
               <Image className={css.user} src={user} alt="user-account" />
             </Link>
           </div>

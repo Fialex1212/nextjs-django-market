@@ -1,58 +1,131 @@
+"use client";
+
 import css from "./style.module.css";
 import Image from "next/image";
 import cn from "classnames";
 import delete_icon from "@/app/static/icons/cart/delete.svg";
 import plus from "@/app/static/icons/cart/plus.svg";
 import minus from "@/app/static/icons/cart/minus.svg";
+import Link from "next/link";
+import useCart from "@/hooks/useCart";
+import { useEffect } from "react";
 
-import { productsData } from "./utils";
+import { productsData, ItemsData } from "./utils";
 
 const Cart = () => {
+  const { cart, addToCart, deleteFromCart, clearCart, updateItemQuantity } =
+    useCart();
+
+  useEffect(() => {
+    addToCart(ItemsData);
+  }, []);
+
+  const totalPrice = () => {
+    
+  }
+
   return (
     <section className={css.cart}>
       <div className="container">
         <div className={css.cart__wrapper}>
           <h3 className={css.cart__title}>Your Cart</h3>
           <div className={css.cart__inner}>
-            <ul className={css.cart__list}>
-              {productsData.map(
-                ({ image, title, size, color, price }, index) => (
-                  <li className={css.cart__item} key={index}>
-                    <div className={css.item__wrapper}>
-                      <Image className={css.item__image} src={image} alt={title} width={124} height={124} />
-                      <div className={css.item__inner}>
-                        <div className={css.item__info}>
-                          <h4 className={css.item__title}>{title}</h4>
-                          <div className={css.item__params}>
-                            <p>Size:</p>
-                            <p>{size}</p>
+            {cart.length === 0 ? (
+              <div className={css.empty__cart}>
+                <h2 className={css.empty__title}>Your cart is empty!</h2>
+                <p>
+                  You haven't added any products yet. Start exploring our
+                  collection and add something to your cart.
+                </p>
+                <button className={css.shop__button}>
+                  <Link href="/">Continue Shopping</Link>
+                </button>
+              </div>
+            ) : (
+              <ul className={css.cart__list}>
+                {cart.map(
+                  ({
+                    id,
+                    title,
+                    image,
+                    price,
+                    discount,
+                    new_price,
+                    description,
+                    colors,
+                    size,
+                    category,
+                    quantity,
+                  }) => (
+                    <li className={css.cart__item} key={id}>
+                      <div className={css.item__wrapper}>
+                        <Image
+                          className={css.item__image}
+                          src={image}
+                          alt={title}
+                          width={124}
+                          height={124}
+                        />
+                        <div className={css.item__inner}>
+                          <div className={css.item__info}>
+                            <h4 className={css.item__title}>{title}</h4>
+                            <div className={css.item__params}>
+                              <p>Size:</p>
+                              <p>{size.name}</p>
+                            </div>
+                            <div className={css.item__params}>
+                              <p>Color:</p>
+                              <p>{colors.name}</p>
+                            </div>
+                            <p className={css.item__price}>
+                              {new_price ? (
+                                <>
+                                  <span>{new_price}$</span>
+                                </>
+                              ) : (
+                                <span>{price}$</span>
+                              )}
+                            </p>
                           </div>
-                          <div className={css.item__params}>
-                            <p>Color:</p>
-                            <p>{color}</p>
-                          </div>
-                          <p className={css.item__price}>${price}</p>
-                        </div>
-                        <div className={css.item__buttons}>
-                          <button className={css.delete__button}>
-                            <Image src={delete_icon} alt="delete icon" />
-                          </button>
-                          <div className={css.item__counter}>
-                            <button className={css.counter__button}>
-                              <Image src={minus} alt="minus button" />
+                          <div className={css.item__buttons}>
+                            <button
+                              onClick={() => deleteFromCart(id)}
+                              className={css.delete__button}
+                            >
+                              <Image src={delete_icon} alt="delete icon" />
                             </button>
-                            <p>1</p>
-                            <button className={css.counter__button}>
-                              <Image className={css.counter__button__img} src={plus} alt="plus button" />
-                            </button>
+                            <div className={css.item__counter}>
+                              <button
+                                onClick={() =>
+                                  updateItemQuantity(id, quantity - 1)
+                                }
+                                className={css.counter__button}
+                                disabled={quantity <= 1}
+                              >
+                                <Image src={minus} alt="minus button" />
+                              </button>
+                              <span>{quantity}</span>
+                              <button
+                                onClick={() =>
+                                  updateItemQuantity(id, quantity + 1)
+                                }
+                                className={css.counter__button}
+                              >
+                                <Image
+                                  className={css.counter__button__img}
+                                  src={plus}
+                                  alt="plus button"
+                                />
+                              </button>
+                            </div>
                           </div>
                         </div>
                       </div>
-                    </div>
-                  </li>
-                )
-              )}
-            </ul>
+                    </li>
+                  )
+                )}
+              </ul>
+            )}
             <div className={css.cart__summary}>
               <h4 className={css.summary__title}>Order Summary</h4>
               <ul className={css.summary__info__list}>
