@@ -23,12 +23,25 @@ const Header = () => {
   };
 
   const toggelSidebarDropDown = () => {
-    setIsSidebarDropDownMenu(!isSidebarDropDownMenu)
-  }
+    setIsSidebarDropDownMenu(!isSidebarDropDownMenu);
+  };
 
   const toggleSidebar = () => {
     setIsSidebarVisible(!isSidebarVisible);
     console.log("switch sidebar");
+  };
+
+  let timeoutId;
+
+  const handleMouseEnter = () => {
+    timeoutId = setTimeout(() => {
+      setIsDropDownMenu(true);
+    }, 1);
+  };
+
+  const handleMouseLeave = () => {
+    clearTimeout(timeoutId);
+    setIsDropDownMenu(false);
   };
 
   useEffect(() => {
@@ -63,18 +76,22 @@ const Header = () => {
             </Link>
             <ul className={css.header__list}>
               <li className={css.header__item}>
-                <button
+                <Link
                   className={cn(css.header__button, {
                     [css.active]: isDropDownMenu,
                   })}
-                  onClick={toggelDropDown}
+                  href="/shop"
+                  onMouseEnter={handleMouseEnter}
+                  onMouseLeave={handleMouseLeave}
                 >
                   Shop
-                </button>
+                </Link>
                 <ul
                   className={cn(css.dropdown__list, {
                     [css.active__dropdown]: isDropDownMenu,
                   })}
+                  onMouseEnter={handleMouseEnter}
+                  onMouseLeave={handleMouseLeave}
                 >
                   {headerDropMenu.map(({ name, slug }, index) => (
                     <li className={css.dropdown__item} key={index}>

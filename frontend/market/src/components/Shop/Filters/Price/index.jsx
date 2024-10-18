@@ -1,6 +1,6 @@
 import css from "./style.module.css";
-import { RangeSlider } from "rsuite";
-import 'rsuite/dist/rsuite.css';
+// import { RangeSlider } from "rsuite";
+// import 'rsuite/dist/rsuite.css';
 
 import cn from "classnames";
 
@@ -15,7 +15,7 @@ const Price = ({ isPriceOpen, setIsPriceOpen }) => {
       <h4 className={cn(css.filters__title, { [css.active]: isPriceOpen })}>
         Price
       </h4>
-      {isPriceOpen && <RangeSlider defaultValue={[10, 50]} />}
+      {isPriceOpen && <>10-50</>}
     </div>
   );
 };
