@@ -1,23 +1,37 @@
 import React from "react";
-import { Slider } from 'rc-slider';
-import 'rc-slider/assets/index.css';
+import css from "./style.module.css";
+import ReactSlider from "react-slider";
 
-const RangeSlider = ({ value, onChange }) => {
+const RangeSlider = ({ values, setValues }) => {
+  const handleChange = (newValues) => setValues(newValues);
+
   return (
-    <div>
-      <Slider
-        range
-        value={value}
-        min={0}
-        max={100}
-        step={1}
-        onChange={onChange}
-        allowCross={false}
-      />
-      <div style={{ marginTop: "1rem" }}>
-        Current Range: {value[0]} - {value[1]}
+    <>
+      <div className={css.slider__container}>
+        <ReactSlider
+          className={css.slider}
+          thumbClassName={css.thumb}
+          trackClassName={css.track}
+          value={values}
+          onChange={handleChange}
+          min={1}
+          max={100}
+          renderThumb={(props, state) => (
+            <div {...props} className={css.thumb}>
+              <span className={css.thumbLabel}>${state.valueNow}</span>
+            </div>
+          )}
+          renderTrack={(props, state) => (
+            <div
+              {...props}
+              className={
+                state.index === 1 ? css.trackActive : css.trackInactive
+              } // Apply different styles to the active (between thumbs) and inactive tracks
+            />
+          )}
+        />
       </div>
-    </div>
+    </>
   );
 };
 
