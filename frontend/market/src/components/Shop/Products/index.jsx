@@ -7,6 +7,7 @@ import Image from "next/image";
 import { useState } from "react";
 import filtersIcon from "@/app/static/icons/shop/filtersMobile.svg";
 import cn from "classnames";
+import Link from "next/link";
 
 const Products = ({ toggleFilters }) => {
   const [isOpenDropdown, setIsOpenDropdown] = useState(false);
@@ -20,15 +21,23 @@ const Products = ({ toggleFilters }) => {
   };
 
   const handleClickOutside = (event) => {
-    if (!event.target.closest('.dropdown')) {
+    if (!event.target.closest(".dropdown")) {
       setIsOpenDropdown(false);
     }
   };
 
+  const countDiscound = (price, discount) => {
+    const discountRate = discount / 100;
+    console.log(Math.round(price / (1 - discountRate)));
+    
+    return Math.round(price / (1 - discountRate));
+  };
+  
+
   useEffect(() => {
-    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside);
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
 
@@ -74,18 +83,25 @@ const Products = ({ toggleFilters }) => {
         />
       </div>
       <ul className={css.products__list}>
-        {productsData.map(({ image, name, rating, price }, index) => (
+        {productsData.map(({ image, name, rating, price, discount }, index) => (
           <li className={css.products__item} key={index}>
-            <Image
-              className={css.products__image}
-              src={image}
-              alt={name}
-              width={270}
-              height={270}
-            />
-            <p>{name}</p>
-            <p>{rating}/5</p>
-            <p>{price}</p>
+            <Link className={css.product__link} href="/">
+              <div className={css.image__wrapper}>
+                <Image
+                  className={css.products__image}
+                  src={image}
+                  alt={name}
+                  width={270}
+                  height={270}
+                />
+              </div>
+              <div className={css.product__info}>
+                <p className={css.product__name}>{name}</p>
+                <p className={css.product__rating}>{rating}/5</p>
+                <p className={css.product__price}>${price}</p>
+                {discount !== 0 && <p>{countDiscound(price, discount)}</p>}
+              </div>
+            </Link>
           </li>
         ))}
       </ul>

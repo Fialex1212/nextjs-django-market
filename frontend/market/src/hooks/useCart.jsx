@@ -18,6 +18,7 @@ const useCart = () => {
     const updatedCart = cart.filter((item) => item.id !== id);
     setCart(updatedCart);
     localStorage.setItem("cart", JSON.stringify(updatedCart));
+    console.log("Cart after deletion:", updatedCart);
   };
 
   const clearCart = () => {

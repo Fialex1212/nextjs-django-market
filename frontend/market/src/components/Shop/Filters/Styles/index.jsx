@@ -2,22 +2,25 @@ import { stylesData } from "../../utils";
 import css from "./style.module.css";
 import cn from "classnames";
 
-
-const Styles = ({isStylesOpen, setIsStylesOpen}) => {
-
+const Styles = ({ isStylesOpen, setIsStylesOpen }) => {
   const toggleStyles = (e) => {
     e.stopPropagation();
     setIsStylesOpen(!isStylesOpen);
   };
 
   return (
-    <div className={css.filters__styles} onClick={toggleStyles}>
-      <h4 className={cn(css.filters__title, { [css.active]: isStylesOpen })}>Dress Style</h4>
+    <div className={css.filters__styles}>
+      <h4
+        className={cn(css.filters__title, { [css.active]: isStylesOpen })}
+        onClick={toggleStyles}
+      >
+        Dress Style
+      </h4>
       {isStylesOpen && (
         <ul className={css.styles__list}>
-          {stylesData.map(({ name }, index) => (
+          {stylesData.map(({ name, slug }, index) => (
             <li className={css.styles__item} key={index}>
-              {name}
+              <Link href={slug}>{name}</Link>
             </li>
           ))}
         </ul>

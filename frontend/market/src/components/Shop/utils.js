@@ -8,49 +8,57 @@ export const productsData = [
         image: "https://platinumlist.net/guide/wp-content/uploads/2023/03/IMG-worlds-of-adventure.webp",
         name: "T-Shirt with Tape Details",
         rating: 3.5,
-        price: 120
+        price: 120,
+        discount: 10,
     },
     {
         image: good2,
         name: "T-Shirt with Tape Details",
         rating: 2,
-        price: 90
+        price: 90,
+        discount: 5,
     },
     {
         image: good3,
         name: "T-Shirt with Tape Details",
         rating: 4.8,
-        price: 140
+        price: 140,
+        discount: 0,
     },
     {
         image: good4,
         name: "T-Shirt with Tape Details",
         rating: 4,
-        price: 220
+        price: 220,
+        discount: 0,
     },
     {
         image: "https://platinumlist.net/guide/wp-content/uploads/2023/03/IMG-worlds-of-adventure.webp",
         name: "T-Shirt with Tape Details",
         rating: 3.5,
-        price: 120
+        price: 120,
+        discount: 10,
     },
     {
         image: good2,
         name: "T-Shirt with Tape Details",
         rating: 2,
-        price: 90
+        price: 90,
+        discount: 0,
     },
     {
         image: good3,
         name: "T-Shirt with Tape Details",
         rating: 4.8,
-        price: 140
+        price: 140,
+        discount: 10,
     },
     {
         image: good4,
         name: "T-Shirt with Tape Details",
         rating: 4,
-        price: 220
+        price: 220,
+        discount: 99,
     },
 ]
 
@@ -124,14 +132,18 @@ export const sizesData = [
 export const stylesData = [
     {
         name: "Casual",
+        slug: "shop/casual"
     },
     {
-        name: "Formal"
+        name: "Formal",
+        slug: "shop/formal"
     },
     {
-        name: "Party"
+        name: "Party",
+        slug: "shop/party"
     },
     {
-        name: "Gym"
+        name: "Gym",
+        slug: "shop/gym"
     }
 ]

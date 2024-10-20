@@ -1,6 +1,9 @@
 from django.db import models
 import uuid
 
+## TODO add addition images, in stock, type like t-shirts, ans subtype,
+## TODO delete new price
+
 class Category(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(max_length=255)
