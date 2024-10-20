@@ -1,0 +1,9 @@
+.reviews{
+    margin-bottom: 50px;
+}
+
+@media screen and (min-width: 768px) {
+    .reviews{
+        margin-bottom: 80px;
+    }
+}

@@ -1,3 +1,7 @@
+.catalog{
+    margin-bottom: 50px;
+}
+
 .catalog__wrapper{
     background-color: var(--gray);
     border-radius: 20px;
@@ -40,6 +44,10 @@
 }
 
 @media screen and (min-width: 768px){
+    .catalog{
+        margin-bottom: 80px;
+    }
+
     .catalog__wrapper{
         border-radius: 40px;
         padding: 70px 64px;

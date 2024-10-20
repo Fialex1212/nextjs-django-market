@@ -8,6 +8,7 @@
     font-weight: 600;
     width: 100%;
     position: relative;
+    cursor: pointer;
 }
 
 .filters__title::before{

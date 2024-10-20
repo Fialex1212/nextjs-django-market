@@ -14,6 +14,7 @@
 }
 
 .banner__title{
+    font-family: 'IntegralCF';
     font-size: var(--fz-xxlarge);
     font-weight: 800;
     margin-bottom: 20px;
@@ -22,6 +23,7 @@
 
 .banner__subtitle{
     font-size: var(--fz-small);
+    font-weight: 300;
     color: var(--text-color-darkened);
     margin-bottom: 24px;
     width: 100%;

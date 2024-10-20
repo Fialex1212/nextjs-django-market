@@ -6,10 +6,10 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import { Navigation } from 'swiper/modules';
 
-export default function App() {
+const SliderReviews = ({breakpoints}) => {
   return (
     <>
-      <Swiper navigation={true} modules={[Navigation]} className="mySwiper">
+      <Swiper navigation={true} modules={[Navigation]} className="mySwiper" loop={true} breakpoints={breakpoints}>
         <h3>OUR HAPPY CUSTOMERS</h3>
         <SwiperSlide>Slide 1</SwiperSlide>
         <SwiperSlide>Slide 2</SwiperSlide>
@@ -24,3 +24,5 @@ export default function App() {
     </>
   );
 }
+
+export default SliderReviews;

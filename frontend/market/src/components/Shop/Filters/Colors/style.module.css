@@ -3,6 +3,7 @@
     font-weight: 600;
     width: 100%;
     position: relative;
+    cursor: pointer;
 }
 
 .filters__title::before{
@@ -55,4 +56,11 @@
     top: 0;
     width: 20px;
     height: 20px;
+    background-image: url(../../../../app/static/icons/done.svg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    right: 50%;
+    top: 50%;
+    transform: translate(50%, -50%);
 }

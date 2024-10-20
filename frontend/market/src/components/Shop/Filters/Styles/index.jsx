@@ -1,6 +1,7 @@
 import { stylesData } from "../../utils";
 import css from "./style.module.css";
 import cn from "classnames";
+import Link from "next/link";
 
 const Styles = ({ isStylesOpen, setIsStylesOpen }) => {
   const toggleStyles = (e) => {
@@ -20,7 +21,7 @@ const Styles = ({ isStylesOpen, setIsStylesOpen }) => {
         <ul className={css.styles__list}>
           {stylesData.map(({ name, slug }, index) => (
             <li className={css.styles__item} key={index}>
-              <Link href={slug}>{name}</Link>
+              <Link className={css.styles__link} href={slug}>{name}</Link>
             </li>
           ))}
         </ul>

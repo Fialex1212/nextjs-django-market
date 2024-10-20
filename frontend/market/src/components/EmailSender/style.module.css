@@ -45,6 +45,7 @@
 }
 
 .email__title{
+    font-family: 'IntegralCF';
     font-size: var(--fz-xlarge);
     margin-bottom: 32px;
     font-weight: 800;

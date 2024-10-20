@@ -8,6 +8,8 @@ import { useState } from "react";
 import filtersIcon from "@/app/static/icons/shop/filtersMobile.svg";
 import cn from "classnames";
 import Link from "next/link";
+import { Rating } from "@smastrom/react-rating";
+import "@smastrom/react-rating/style.css";
 
 const Products = ({ toggleFilters }) => {
   const [isOpenDropdown, setIsOpenDropdown] = useState(false);
@@ -29,10 +31,9 @@ const Products = ({ toggleFilters }) => {
   const countDiscound = (price, discount) => {
     const discountRate = discount / 100;
     console.log(Math.round(price / (1 - discountRate)));
-    
+
     return Math.round(price / (1 - discountRate));
   };
-  
 
   useEffect(() => {
     document.addEventListener("mousedown", handleClickOutside);
@@ -97,9 +98,25 @@ const Products = ({ toggleFilters }) => {
               </div>
               <div className={css.product__info}>
                 <p className={css.product__name}>{name}</p>
-                <p className={css.product__rating}>{rating}/5</p>
-                <p className={css.product__price}>${price}</p>
-                {discount !== 0 && <p>{countDiscound(price, discount)}</p>}
+                <p className={css.product__rating}>
+                  <Rating
+                    value={rating} // Set your static rating value
+                    readOnly // Make it read-only
+                    style={{ maxWidth: 110 }} // Optional: Set maximum width
+                  />
+                  <div>{rating}/5</div>
+                </p>
+                <div className={css.product__price}>
+                  <p>${price}</p>
+                  {discount !== 0 && (
+                    <div className={css.discount__info}>
+                      <p className={css.old__price}>
+                        ${countDiscound(price, discount)}
+                      </p>
+                      <p className={css.discount__price}>-{discount}%</p>
+                    </div>
+                  )}
+                </div>
               </div>
             </Link>
           </li>

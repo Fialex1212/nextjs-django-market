@@ -1,10 +1,10 @@
 import Brands from "@/components/Brands";
 import Catalog from "@/components/Catalog";
 import Showcase from "@/components/Showcase";
-
-import { catalogData } from "./utils";
 import Banner from "@/components/Banner";
 import Reviews from "@/components/Reviews";
+
+import { catalogData } from "./utils";
 
 export default function Home() {
   return (
