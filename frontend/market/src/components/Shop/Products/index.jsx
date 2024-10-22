@@ -10,10 +10,24 @@ import cn from "classnames";
 import Link from "next/link";
 import { Rating } from "@smastrom/react-rating";
 import "@smastrom/react-rating/style.css";
+import axios from "axios";
+
 
 const Products = ({ toggleFilters }) => {
   const [isOpenDropdown, setIsOpenDropdown] = useState(false);
   const [selectedValue, setSelectedValue] = useState("Casual");
+  const [products, setProducts] = useState([]);
+
+  const getProducts = async () => {
+    try {
+      const response = await axios.get("http://127.0.0.1:8000/api/products/products/");
+      setProducts(response.data);
+      console.log("Products was successfuly fetched!");
+      console.log(response.data);
+    } catch (error) {
+      console.log("Error with fetching producst!");
+    }
+  };
 
   const toggleDropdown = () => setIsOpenDropdown(!isOpenDropdown);
 
@@ -30,12 +44,11 @@ const Products = ({ toggleFilters }) => {
 
   const countDiscound = (price, discount) => {
     const discountRate = discount / 100;
-    console.log(Math.round(price / (1 - discountRate)));
-
     return Math.round(price / (1 - discountRate));
   };
 
   useEffect(() => {
+    getProducts();
     document.addEventListener("mousedown", handleClickOutside);
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
@@ -84,20 +97,20 @@ const Products = ({ toggleFilters }) => {
         />
       </div>
       <ul className={css.products__list}>
-        {productsData.map(({ image, name, rating, price, discount }, index) => (
+        {products.map(({ image, title, rating, price, discount }, index) => (
           <li className={css.products__item} key={index}>
             <Link className={css.product__link} href="/">
               <div className={css.image__wrapper}>
                 <Image
                   className={css.products__image}
                   src={image}
-                  alt={name}
+                  alt={title}
                   width={270}
                   height={270}
                 />
               </div>
               <div className={css.product__info}>
-                <p className={css.product__name}>{name}</p>
+                <p className={css.product__name}>{title}</p>
                 <p className={css.product__rating}>
                   <Rating
                     value={rating} // Set your static rating value

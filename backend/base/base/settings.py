@@ -23,6 +23,7 @@ INSTALLED_APPS = [
     'cart',
     'products',
     'reviews',
+    'email_sender',
     
     #libraries
     'rest_framework',
@@ -138,3 +139,11 @@ CORS_ALLOW_METHODS = [
     "POST",
     "PUT",
 ]
+
+#EMAIL SMTP
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'alexkilan940@gmail.com'
+EMAIL_HOST_PASSWORD = 'csxk odnu ryac vyuj'

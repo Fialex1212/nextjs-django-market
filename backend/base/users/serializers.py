@@ -7,12 +7,11 @@ class UserRegisterSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = CustomUser
-        fields = ['email', 'username', 'password']
+        fields = ['email', 'password']
         
     def create(self, validate_data):
         user = CustomUser(
             email = validate_data['email'],
-            username = validate_data['username']
         )
         user.set_password(validate_data['password'])
         user.save()
@@ -21,19 +20,18 @@ class UserRegisterSerializer(serializers.ModelSerializer):
 class UserSerializers(serializers.ModelSerializer):
     class Meta:
         model = CustomUser
-        fields = ['id', 'username', 'email']
+        fields = ['id',  'email']
 
 class UserUpdateSerializers(serializers.ModelSerializer):
     class Meta:
         model = CustomUser
-        fields = ['email', 'username', 'password']
+        fields = ['email', 'password']
         extra_kwargs = {
             'password': {'write_only': True, 'required': False},
         }
         
     def update(self, instance, validated_data):
         instance.email = validated_data.get('email', instance.email)
-        instance.username = validated_data.get('username', instance.username)
         password = validate_password.get('password')
         if password:
             instance.set_password(password)

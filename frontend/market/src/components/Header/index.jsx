@@ -11,8 +11,10 @@ import Cart from "./Cart";
 import { headerData, headerDropMenu, headerInterface } from "./utils";
 
 import cn from "classnames";
+import useAuth from "@/hooks/useAuth";
 
 const Header = () => {
+  const { token } = useAuth();
   const [isDropDownMenu, setIsDropDownMenu] = useState(false);
   const [isSidebarDropDownMenu, setIsSidebarDropDownMenu] = useState(false);
   const [isSidebarVisible, setIsSidebarVisible] = useState(false);
@@ -112,9 +114,15 @@ const Header = () => {
           <div className={css.header__interface}>
             <Search />
             <Cart />
-            <Link href="/login">
-              <Image className={css.user} src={user} alt="user-account" />
-            </Link>
+            {token ? (
+              <Link href="/login">
+                <Image className={css.user} src={user} alt="user-account" />
+              </Link>
+            ) : (
+              <Link href="/profile">
+                <Image className={css.user} src={user} alt="user-account" />
+              </Link>
+            )}
           </div>
         </div>
       </div>
