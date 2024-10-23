@@ -116,7 +116,9 @@
 
 .header__interface{
     display: flex;
+    justify-content: flex-end;
     column-gap: 12px;
+    width: 100%;
 }
 
 @media screen and (min-width: 768px){
@@ -146,6 +148,11 @@
         display: flex;
         column-gap: 24px;
         height: 100%;
+    }
+
+    .search{
+        max-width: 540px;
+        width: 100%;
     }
 
     .input__inner{

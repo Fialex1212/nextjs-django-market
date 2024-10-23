@@ -10,19 +10,19 @@ import Link from "next/link";
 import useCart from "@/hooks/useCart";
 import { useEffect } from "react";
 
-import { productsData, ItemsData } from "./utils";
-
 const Cart = () => {
-  const { cart, addToCart, deleteFromCart, clearCart, updateItemQuantity } =
-    useCart();
-
-  useEffect(() => {
-    addToCart(ItemsData);
-  }, []);
+  const { cart, deleteFromCart, clearCart, updateItemQuantity } = useCart();
 
   const totalPrice = () => {
-    
-  }
+    return cart.reduce((total, item) => {
+      const itemPrice = item.new_price ? item.new_price : item.price;
+      return total + itemPrice * item.quantity;
+    }, 0);
+  };
+
+  const subtotal = totalPrice();
+  const deliveryFee = 15;
+  const total = subtotal + deliveryFee;
 
   return (
     <section className={css.cart}>
@@ -43,87 +43,71 @@ const Cart = () => {
               </div>
             ) : (
               <ul className={css.cart__list}>
-                {cart.map(
-                  ({
-                    id,
-                    title,
-                    image,
-                    price,
-                    discount,
-                    new_price,
-                    description,
-                    colors,
-                    size,
-                    category,
-                    quantity,
-                  }) => (
-                    <li className={css.cart__item} key={id}>
-                      <div className={css.item__wrapper}>
-                        <Image
-                          className={css.item__image}
-                          src={image}
-                          alt={title}
-                          width={124}
-                          height={124}
-                        />
-                        <div className={css.item__inner}>
-                          <div className={css.item__info}>
-                            <h4 className={css.item__title}>{title}</h4>
-                            <div className={css.item__params}>
-                              <p>Size:</p>
-                              <p>{size.name}</p>
-                            </div>
-                            <div className={css.item__params}>
-                              <p>Color:</p>
-                              <p>{colors.name}</p>
-                            </div>
-                            <p className={css.item__price}>
-                              {new_price ? (
-                                <>
-                                  <span>{new_price}$</span>
-                                </>
-                              ) : (
-                                <span>{price}$</span>
-                              )}
-                            </p>
+                {cart.map((item) => (
+                  <li className={css.cart__item} key={item.id}>
+                    <div className={css.item__wrapper}>
+                      <Image
+                        className={css.item__image}
+                        src={item.image}
+                        alt={item.title}
+                        width={124}
+                        height={124}
+                      />
+                      <div className={css.item__inner}>
+                        <div className={css.item__info}>
+                          <h4 className={css.item__title}>{item.title}</h4>
+                          <div className={css.item__params}>
+                            <p>Size:</p>
+                            <p>{item.size.name}</p>
                           </div>
-                          <div className={css.item__buttons}>
+                          <div className={css.item__params}>
+                            <p>Color:</p>
+                            <p>{item.colors.name}</p>
+                          </div>
+                          <p className={css.item__price}>
+                            {item.new_price ? (
+                              <span>{item.new_price}$</span>
+                            ) : (
+                              <span>{item.price}$</span>
+                            )}
+                          </p>
+                        </div>
+                        <div className={css.item__buttons}>
+                          <button
+                            onClick={() => deleteFromCart(item.id)}
+                            className={css.delete__button}
+                          >
+                            <Image src={delete_icon} alt="delete icon" />
+                          </button>
+                          <div className={css.item__counter}>
                             <button
-                              onClick={() => deleteFromCart(id)}
-                              className={css.delete__button}
+                              onClick={() =>
+                                updateItemQuantity(item.id, item.quantity - 1)
+                              }
+                              className={css.counter__button}
+                              disabled={item.quantity <= 1}
                             >
-                              <Image src={delete_icon} alt="delete icon" />
+                              <Image src={minus} alt="minus button" />
                             </button>
-                            <div className={css.item__counter}>
-                              <button
-                                onClick={() =>
-                                  updateItemQuantity(id, quantity - 1)
-                                }
-                                className={css.counter__button}
-                                disabled={quantity <= 1}
-                              >
-                                <Image src={minus} alt="minus button" />
-                              </button>
-                              <span>{quantity}</span>
-                              <button
-                                onClick={() =>
-                                  updateItemQuantity(id, quantity + 1)
-                                }
-                                className={css.counter__button}
-                              >
-                                <Image
-                                  className={css.counter__button__img}
-                                  src={plus}
-                                  alt="plus button"
-                                />
-                              </button>
-                            </div>
+                            <span>{item.quantity}</span>
+                            <button
+                              onClick={() =>
+                                updateItemQuantity(item.id, item.quantity + 1)
+                              }
+                              className={css.counter__button}
+                            >
+                              <Image
+                                className={css.counter__button__img}
+                                src={plus}
+                                alt="plus button"
+                              />
+                            </button>
                           </div>
                         </div>
                       </div>
-                    </li>
-                  )
-                )}
+                    </div>
+                  </li>
+                ))}
               </ul>
             )}
             <div className={css.cart__summary}>
@@ -131,7 +115,7 @@ const Cart = () => {
               <ul className={css.summary__info__list}>
                 <li className={css.info__item}>
                   <p>Subtotal</p>
-                  <p className={css.info__price}>$565</p>
+                  <p className={css.info__price}>${subtotal.toFixed(2)}</p>
                 </li>
                 <li className={css.info__item}>
                   <p>Discount(-20%)</p>
@@ -146,7 +130,7 @@ const Cart = () => {
               </ul>
               <div className={css.summary__price}>
                 <p className={css.price__title}>Total</p>
-                <p className={css.price__total}>$467</p>
+                <p className={css.price__total}>${total.toFixed(2)}</p>
               </div>
               <form className={css.cart__form}>
                 <label className={css.cart__label}>
@@ -159,6 +143,7 @@ const Cart = () => {
                 <button className={css.form__button}>Apply</button>
               </form>
               <button className={css.summary__button}>Go to Checkout</button>
+              <button onClick={clearCart}>clearCart</button>
             </div>
           </div>
         </div>
