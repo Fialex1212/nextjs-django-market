@@ -7,12 +7,9 @@ from .views import (
     ColorDetailView,
     SizeListCreateView,
     SizeDetailView,
-    ProductViewSet
+    ProductsListCreateView,
+    ProductDetailView
 )
-
-# Set up router for Product viewset
-router = DefaultRouter()
-router.register(r'products', ProductViewSet)
 
 urlpatterns = [
     #Categories urls
@@ -20,13 +17,14 @@ urlpatterns = [
     path("categories/<uuid:id>/", CategoryDetailView.as_view(), name="category-detail"),
     
     #Colors urls
-    path('colors/', ColorListCreateView.as_view(), name='color-list-create'),
+    path('colors/', ColorListCreateView.as_view(), name='color-lis'),
     path('colors/<uuid:id>/', ColorDetailView.as_view(), name='color-detail'),
     
     #Sizes urls
-    path('sizes/', SizeListCreateView.as_view(), name='size-list-create'),
+    path('sizes/', SizeListCreateView.as_view(), name='size-list'),
     path('sizes/<uuid:id>/', SizeDetailView.as_view(), name='size-detail'),
     
-    #Products urs
-    path('', include(router.urls)),
+    #Product urls
+    path('products/', ProductsListCreateView.as_view(), name="products-list"),
+    path('<str:category>/<str:sex>/<uuid:id>/', ProductDetailView.as_view(), name="product-detail")
 ]

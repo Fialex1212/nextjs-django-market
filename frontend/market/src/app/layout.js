@@ -1,6 +1,7 @@
 import "./globals.css";
 import cn from "classnames";
 import localfont from 'next/font/local';
+import { siteMetadata } from "./utils/metaData";
 
 const satoshi = localfont({
   src: [
@@ -35,6 +36,49 @@ const integralCF = localfont({
   display: 'swap',
   variable: "--integralCF"
 });
+
+export const metadata = {
+  metadataBase: new URL('https://acme.com'),
+  alternates: {
+      canonical: '/',
+  },
+  verification: {
+      google: siteMetadata.googleVerification,
+  },
+  title: siteMetadata.title,
+  description: siteMetadata.description,
+  openGraph: {
+      url: siteMetadata.url,
+      siteName: siteMetadata.name,
+      locale: "uk_UA",
+      type: "website",
+      images: {
+          url: siteMetadata.image.url,
+          width: 500,
+          height: 500,
+          alt: siteMetadata.image.alt,
+      },
+  },
+  robots: {
+      index: true,
+      follow: false,
+      nocache: true,
+      googleBot: {
+          index: true,
+          follow: false,
+          noimageindex: true,
+          "max-video-preview": -1,
+          "max-image-preview": "large",
+          "max-snippet": -1,
+      },
+  },
+  twitter: {
+      card: "summary_large_image",
+      title: siteMetadata.title,
+      description: siteMetadata.description,
+      images: siteMetadata.image.url,
+  },
+};
 
 export default function RootLayout({ children }) {
   return (

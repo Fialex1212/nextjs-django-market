@@ -1,5 +1,7 @@
-from rest_framework import generics
+from django.shortcuts import get_list_or_404
 from rest_framework import viewsets
+from rest_framework.views import APIView
+from rest_framework.response import Response
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.filters import OrderingFilter
 import django_filters
@@ -7,13 +9,17 @@ from .serializers import (
     CategorySerializer,
     ColorSerializer,
     SizeSerializer,
-    ProductSerializer
+    ProductSerializer,
 )
 from .models import (
     Category,
     Color,
     Size,
     Product
+)
+from rest_framework import (
+    generics, 
+    status
 )
 
 #Views for category
@@ -48,29 +54,34 @@ class SizeDetailView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = SizeSerializer
     lookup_field = "id"
 
-# Define filter class for Product model
-class ProductFilter(django_filters.FilterSet):
-    # Filtering by related fields like `category`, `colors`, and `size`
-    category = django_filters.CharFilter(field_name="category__name", lookup_expr="icontains")
-    colors = django_filters.CharFilter(field_name="colors__name", lookup_expr="icontains")
-    size = django_filters.CharFilter(field_name="size__name", lookup_expr="icontains")
-    
-    # Price filtering
-    min_price = django_filters.NumberFilter(field_name="price", lookup_expr='gte')
-    max_price = django_filters.NumberFilter(field_name="price", lookup_expr='lte')
-
-    class Meta:
-        model = Product
-        fields = ['category', 'colors', 'size', 'min_price', 'max_price']
-
-# Product viewset
-class ProductViewSet(viewsets.ModelViewSet):
+# View for Products
+class ProductsListCreateView(generics.ListCreateAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
+        
+class ProductDetailView(APIView):
+    def get(self, request, category, sex, id):
+        products = get_list_or_404(Product, category__name=category, sex=sex, id=id)
+        return Response(self.get_product_details(products), status=status.HTTP_200_OK)
 
-    # Adding filtering and sorting capabilities
-    filter_backends = [DjangoFilterBackend, OrderingFilter]
-    filterset_class = ProductFilter
-    filterset_fields = ['category', 'colors', 'size', 'price']
-    ordering_fields = ['price', 'new_price', 'title']
-    ordering = ['price']
+    def get_product_details(self, products):
+        return [
+            {
+                "id": str(product.id),
+                "title": product.title,
+                "image": product.image.url if product.image else None,
+                "rating": product.rating,
+                "price": product.price,
+                "discount": product.discount,
+                "description": product.description,
+                "colors": [color.name for color in product.colors.all()],
+                "sizes": [size.name for size in product.sizes.all()],
+                "category": product.category.name,
+                "type_of_clothes": product.type_of_clothes,
+                "created_at": product.created_at.isoformat(),
+                "updated_at": product.updated_at.isoformat(),
+                "availability_status": product.availability_status,
+                "sex": product.sex
+            }
+            for product in products
+        ]

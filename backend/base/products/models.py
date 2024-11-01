@@ -29,6 +29,11 @@ class Product(models.Model):
         ('on_the_road', 'On the Road'),
         ('not_available', 'Not Available'),
     ]
+    SEX_CHOICES = [
+        ('male', 'Male'),
+        ('female', 'Female'),
+        ('unisex', 'Unisex'),
+    ]
     
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     title = models.CharField(max_length=124)
@@ -44,7 +49,7 @@ class Product(models.Model):
     discount = models.IntegerField()
     description = models.TextField()
     colors = models.ManyToManyField(Color)
-    size = models.ManyToManyField(Size)
+    sizes = models.ManyToManyField(Size)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     type_of_clothes = models.TextField(default="Unknown")
     created_at = models.DateTimeField(auto_now_add=True)
@@ -53,6 +58,11 @@ class Product(models.Model):
         max_length=20,
         choices=STATUS_CHOICES,
         default='in_stock',
+    )
+    sex = models.CharField(
+        max_length=20,
+        choices=SEX_CHOICES,
+        default="Unisex"
     )
     
     def __str__(self) -> str:
