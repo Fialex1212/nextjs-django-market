@@ -1,10 +1,10 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import css from "./style.module.css";
 import { productsData } from "../utils";
 import Image from "next/image";
-import { useState } from "react";
 import filtersIcon from "@/app/static/icons/shop/filtersMobile.svg";
 import cn from "classnames";
 import Link from "next/link";
@@ -15,23 +15,33 @@ import useCart from "@/hooks/useCart";
 import { Toaster } from "react-hot-toast";
 
 const Products = ({ toggleFilters }) => {
+  const router = useRouter();
   const { cart, addToCart } = useCart();
+  const start =  0;
+  let end = 8;
   const [isOpenDropdown, setIsOpenDropdown] = useState(false);
   const [selectedValue, setSelectedValue] = useState("Casual");
   const [products, setProducts] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 9;
 
   const getProducts = async () => {
     try {
       const response = await axios.get(
-        "http://127.0.0.1:8000/api/products/products/"
+        `http://127.0.0.1:8000/api/products/products/?start=${start}&end=${end}`
       );
       setProducts(response.data);
-      console.log("Products was successfuly fetched!");
+      console.log("Products were successfully fetched!");
       console.log(response.data);
     } catch (error) {
-      console.log("Error with fetching producst!");
+      console.log("Error with fetching products!");
     }
   };
+
+  const LoadMore = () => {
+    end += 9
+    getProducts()
+  }
 
   const toggleDropdown = () => setIsOpenDropdown(!isOpenDropdown);
 
@@ -46,7 +56,7 @@ const Products = ({ toggleFilters }) => {
     }
   };
 
-  const countDiscound = (price, discount) => {
+  const countDiscount = (price, discount) => {
     const discountRate = discount / 100;
     return Math.round(price / (1 - discountRate));
   };
@@ -62,7 +72,7 @@ const Products = ({ toggleFilters }) => {
       new_price: item.new_price,
       description: item.description,
       colors: item.colors,
-      size: item.size,
+      sizes: item.sizes,
       category: item.category,
       quantity: item.quantity,
       availability_status: item.availability_status,
@@ -70,12 +80,24 @@ const Products = ({ toggleFilters }) => {
   };
 
   useEffect(() => {
-    getProducts();
+    const start = (currentPage - 1) * itemsPerPage;
+    const end = start + itemsPerPage - 1;
+    getProducts(start, end);
     document.addEventListener("mousedown", handleClickOutside);
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, []);
+  }, [currentPage]);
+
+  const handleNextPage = () => {
+    setCurrentPage((prevPage) => prevPage + 1);
+  };
+
+  const handlePreviousPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage((prevPage) => prevPage - 1);
+    }
+  };
 
   return (
     <div className={css.products}>
@@ -83,7 +105,6 @@ const Products = ({ toggleFilters }) => {
       <div className={css.products__params}>
         <h3 className={css.products__title}>{selectedValue}</h3>
         <div className={css.products__sortby}>
-          <p>Showing 1-10 of 100 Products</p>
           <p>
             Sort by:
             <button
@@ -123,20 +144,20 @@ const Products = ({ toggleFilters }) => {
         {products.map(
           ({
             id,
-            image,
             title,
-            rating,
+            image,
             price,
-            discount,
+            rating,
             availability_status,
+            discount,
             description,
             colors,
-            size,
+            sizes,
             category,
-            quantity,
+            sex,
           }) => (
             <li className={cn(css.products__item)} key={id}>
-              <Link className={css.product__link} href="/">
+              <Link className={css.product__link} href={`/shop/${category}/${sex}/${id}`}>
                 <div
                   className={cn(css.image__wrapper, {
                     [css.not__available]:
@@ -166,7 +187,7 @@ const Products = ({ toggleFilters }) => {
                     {discount !== 0 && (
                       <div className={css.discount__info}>
                         <p className={css.old__price}>
-                          ${countDiscound(price, discount)}
+                          ${countDiscount(price, discount)}
                         </p>
                         <p className={css.discount__price}>-{discount}%</p>
                       </div>
@@ -183,27 +204,31 @@ const Products = ({ toggleFilters }) => {
                     handleAddToCart(
                       {
                         id,
-                        image,
                         title,
-                        rating,
-                        discount,
+                        image,
                         price,
+                        rating,
                         availability_status,
+                        discount,
                         description,
                         colors,
-                        size,
+                        sizes,
                         category,
-                        quantity,
+                        sex,
                       },
                       e
                     )
                   }
-                ></button>
+                >
+                </button>
               )}
             </li>
           )
         )}
       </ul>
+      <div className={css.products__pagination}>
+        <button className={css.pagination__button} onClick={() => LoadMore()}>Load more</button>
+      </div>
     </div>
   );
 };

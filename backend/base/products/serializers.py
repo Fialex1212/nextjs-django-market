@@ -22,6 +22,17 @@ class SizeSerializer(serializers.ModelSerializer):
         fields = ["id", "name"]
         
 class ProductSerializer(serializers.ModelSerializer):
+    colors = serializers.PrimaryKeyRelatedField(queryset=Color.objects.all(), many=True)
+    sizes = serializers.PrimaryKeyRelatedField(queryset=Size.objects.all(), many=True)
+    category = serializers.PrimaryKeyRelatedField(queryset=Category.objects.all())
+    
     class Meta:
         model = Product
         fields = ['id', 'title', 'image', 'price', 'rating', 'availability_status', 'discount', 'description', 'colors', 'sizes', 'category', 'sex']
+        
+    def to_representation(self, instance):
+        representation = super().to_representation(instance)
+        representation['colors'] = [color.name for color in instance.colors.all()]
+        representation['sizes'] = [size.name for size in instance.sizes.all()]
+        representation['category'] = instance.category.name
+        return representation

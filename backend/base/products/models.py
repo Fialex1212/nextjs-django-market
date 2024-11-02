@@ -7,7 +7,7 @@ class Category(models.Model):
     name = models.CharField(max_length=255)
     
     def __str__(self):
-        return f"{self.name}"
+        return self.name
 
 class Size(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
@@ -67,3 +67,12 @@ class Product(models.Model):
     
     def __str__(self) -> str:
         return f"{self.title}"
+    
+    def get_color_names(self):
+        return [color.name for color in self.colors.all()]
+
+    def get_size_names(self):
+        return [size.name for size in self.sizes.all()]
+
+    def get_category_name(self):
+        return self.category.name

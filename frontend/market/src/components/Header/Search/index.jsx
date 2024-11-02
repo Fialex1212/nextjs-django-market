@@ -2,33 +2,39 @@ import { useState } from "react";
 import css from "./style.module.css";
 import searchDark from "@/app/static/icons/header/searchDark.svg";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 const Search = () => {
   const [isPopupOpend, setIsPopupOpend] = useState(false);
-  const [searchData, setSearchData] = useState({
-    search: "",
-  });
+  const [query, setQuery] = useState("");
+  const router = useRouter();
 
   const togglePopup = () => {
     setIsPopupOpend((prev) => !prev);
   };
 
-  const handleInput = (e) => {
-    const [nave, value] = e.target;
+  const handleSearch = (e) => {
+    e.prevertDefault();
+    if (query.trim) {
+      router.push(`/search?query=${query}`);
+    }
   };
 
   return (
     <div className={css.search}>
       <div className={css.input__inner}>
-        <label >
-          <input
-            type="text"
-            className={css.search__input}
-            placeholder="Search for products..."
-            name="search"
-            value={searchData.value}
-          />
-        </label>
+        <form onSubmit={handleSearch}>
+          <label>
+            <input
+              type="text"
+              className={css.search__input}
+              placeholder="Search for products..."
+              name="search"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+            />
+          </label>
+        </form>
       </div>
       <button className={css.search__button} onClick={togglePopup}>
         <Image className={css.search__icon} src={searchDark} alt="search" />

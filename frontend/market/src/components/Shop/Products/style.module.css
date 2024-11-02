@@ -46,6 +46,7 @@
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 20px;
+    margin-bottom: 50px;
 }
 
 
@@ -196,6 +197,20 @@
 
 .active::before{
     transform: translate(50%, -50%) rotate(180deg);
+}
+
+.products__pagination{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.pagination__button{
+    width: 150px;
+    height: 40px;
+    border-radius: 20px;
+    border: 2px solid var(--black);
+    font-weight: 600;
 }
 
 @media screen and (min-width: 400px) {

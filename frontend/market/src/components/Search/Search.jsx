@@ -1,10 +1,9 @@
-"use client"
-
+import css from "./style.module.css";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-export default function SearchPage() {
+const Search = () => {
   const searchParams = useSearchParams();
   const query = searchParams.get("query");
   const [results, setResults] = useState([]);
@@ -47,4 +46,6 @@ export default function SearchPage() {
       )}
     </div>
   );
-}
+};
+
+export default Search;

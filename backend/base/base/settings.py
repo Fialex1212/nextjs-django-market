@@ -99,7 +99,7 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 #Not necessary last slash
-APPEND_SLASH = True
+APPEND_SLASH = False
 
 #MEDIA
 MEDIA_URL = '/media/'
