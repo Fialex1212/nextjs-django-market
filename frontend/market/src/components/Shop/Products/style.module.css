@@ -3,6 +3,10 @@
     margin-bottom: 50px;
 }
 
+.add__width{
+    width: 100%;
+}
+
 .products__params,
 .products__sortby{
     position: relative;
@@ -211,6 +215,12 @@
     border-radius: 20px;
     border: 2px solid var(--black);
     font-weight: 600;
+}
+
+.not__found{
+    font-size: var(--fz-section-title);
+    text-align: center;
+    width: 100%;
 }
 
 @media screen and (min-width: 400px) {

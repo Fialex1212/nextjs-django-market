@@ -21,8 +21,6 @@ const Filters = ({ toggleFilters, isFiltersVisilbe }) => {
   const [isColorsOpen, setIsColorsOpen] = useState(false);
   const [isSizesOpen, setIsSizesOpen] = useState(false);
   const [isStylesOpen, setIsStylesOpen] = useState(false);
-  const [selectedColors, setSelectedColors] = useState([]);
-  const [selectedSizes, setSelectedSizes] = useState([]);
 
   return (
     <>
@@ -51,19 +49,15 @@ const Filters = ({ toggleFilters, isFiltersVisilbe }) => {
             />
           </button>
         </div>
-        <Types activeType={activeType} setActiveType={setActiveType} />
+        {/* <Types activeType={activeType} setActiveType={setActiveType} /> */}
         <Price isPriceOpen={isPriceOpen} setIsPriceOpen={setIsPriceOpen} />
         <Colors
           isColorsOpen={isColorsOpen}
           setIsColorsOpen={setIsColorsOpen}
-          selectedColors={selectedColors}
-          setSelectedColors={setSelectedColors}
         />
         <Sizes
           isSizesOpen={isSizesOpen}
           setIsSizesOpen={setIsSizesOpen}
-          selectedSizes={selectedSizes}
-          setSelectedSizes={setSelectedSizes}
         />
         <Styles
           isStylesOpen={isStylesOpen}

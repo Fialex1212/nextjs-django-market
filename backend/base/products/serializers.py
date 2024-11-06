@@ -1,10 +1,16 @@
 from rest_framework import serializers
 from .models import (
+    PromoCode,
     Category,
     Size,
     Color,
     Product
 )
+
+class PromoCodeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = PromoCode
+        fields = "__all__"
 
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:

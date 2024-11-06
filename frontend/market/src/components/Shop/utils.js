@@ -64,43 +64,43 @@ export const productsData = [
 
 export const colorsData = [
     {
-        name: "green",
+        name: "Green",
         color: "00C12B"
     },
     {
-        name: "red",
+        name: "Red",
         color: "F50606"
     },
     {
-        name: "yellow",
+        name: "Yellow",
         color: "F5DD06"
     },
     {
-        name: "orange",
+        name: "Orange",
         color: "F57906"
     },
     {
-        name: "white-blue",
+        name: "White-Blue",
         color: "06CAF5"
     },
     {
-        name: "blue",
+        name: "Blue",
         color: "063AF5"
     },
     {
-        name: "purple",
+        name: "Purple",
         color: "7D06F5"
     },
     {
-        name: "pink",
+        name: "Pink",
         color: "F506A4"
     },
     {
-        name: "white",
+        name: "White",
         color: "FFFFFF"
     },
     {
-        name: "black",
+        name: "Black",
         color: "000000"
     },
 ]
@@ -132,18 +132,14 @@ export const sizesData = [
 export const stylesData = [
     {
         name: "Casual",
-        slug: "shop/casual"
     },
     {
         name: "Formal",
-        slug: "shop/formal"
     },
     {
         name: "Party",
-        slug: "shop/party"
     },
     {
         name: "Gym",
-        slug: "shop/gym"
     }
 ]

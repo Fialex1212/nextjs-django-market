@@ -2,6 +2,30 @@ import uuid
 from django.db import models
 from django.core.validators import MinValueValidator, MaxValueValidator
 
+class PromoCode(models.Model):
+    DISCOUNT_TYPES_CHOICES = [
+        ('fixed', 'fixed'),
+        ('percentage', 'percentage')
+    ]
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    code = models.CharField(unique=True, max_length=10)
+    discount_type = models.CharField(max_length=20,
+        choices=DISCOUNT_TYPES_CHOICES,
+        default="percentage"
+    )
+    discount_value = models.DecimalField(max_digits=10,
+        decimal_places=2,
+        default=10.00
+    )
+    start_date = models.DateTimeField()
+    end_date = models.DateTimeField()
+    usage_limit = models.PositiveIntegerField(default=100)
+    times_used = models.PositiveIntegerField(default=0)
+    is_active = models.BooleanField(default=True)
+    
+    def __str__(self):
+        return self.code
+
 class Category(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(max_length=255)

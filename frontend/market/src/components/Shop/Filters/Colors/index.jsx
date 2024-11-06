@@ -2,13 +2,15 @@ import { colorsData } from "../../utils";
 import css from "./style.module.css";
 import cn from "classnames";
 import toast, { Toaster } from "react-hot-toast";
+import { useColorsSorting } from "@/contexts/colorsContext";
 
 const Colors = ({
   isColorsOpen,
   setIsColorsOpen,
-  selectedColors,
-  setSelectedColors,
 }) => {
+
+  const {selectedColors, setSelectedColors} = useColorsSorting()
+
 
   const darkenColor = (color) => {
     let num = parseInt(color, 16);

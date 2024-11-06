@@ -1,3 +1,4 @@
+import { useSizesSorting } from "@/contexts/sizesContext";
 import { sizesData } from "../../utils";
 import css from "./style.module.css";
 import cn from "classnames";
@@ -6,9 +7,10 @@ import toast, { Toaster } from "react-hot-toast";
 const Sizes = ({
   isSizesOpen,
   setIsSizesOpen,
-  selectedSizes,
-  setSelectedSizes,
 }) => {
+  
+  const {selectedSizes, setSelectedSizes} = useSizesSorting()
+
   const handleSizeClick = (name) => {
     if (selectedSizes.includes(name)) {
       setSelectedSizes(selectedSizes.filter((size) => size !== name));

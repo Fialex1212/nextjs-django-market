@@ -1,18 +1,17 @@
-from django.shortcuts import get_list_or_404
+from django.utils import timezone
 from rest_framework import viewsets
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
-from django_filters.rest_framework import DjangoFilterBackend
-from rest_framework.filters import OrderingFilter
-import django_filters
 from .serializers import (
+    PromoCodeSerializer,
     CategorySerializer,
     ColorSerializer,
     SizeSerializer,
     ProductSerializer,
 )
 from .models import (
+    PromoCode,
     Category,
     Color,
     Size,
@@ -21,6 +20,10 @@ from .models import (
 from rest_framework import (
     generics, 
     status
+)
+from django.shortcuts import (
+    get_list_or_404, 
+    get_object_or_404
 )
 
 #Views for category
@@ -114,3 +117,29 @@ def search_products(request):
         serializer = ProductSerializer(results, many=True)
         return Response(serializer.data)
     return Response([])
+
+@api_view(['POST'])
+def apply_promo_code(req):
+    code = req.POST.get('promo_code')
+    promo = get_object_or_404(PromoCode, code=code, is_active=True)
+    print(code)
+    
+    try:   
+        if promo.start_date <= timezone.now() <= promo.end_date:
+            if promo.usage_limit > promo.times_used:
+                promo.times_used += 1
+                promo.save()
+                return Response({'success': True, 'discount': promo.discount_value}, status=status.HTTP_200_OK)
+            else:
+                return Response({'success': False, 'message': 'Promo code has reached its usage limit.'}, status=status.HTTP_400_BAD_REQUEST)
+        else:
+            return Response({'success': False, 'message': 'promo code is not valid'}, status=status.HTTP_400_BAD_REQUEST)
+    except:
+        return Response({'message': "Not fount"})
+    
+@api_view(['GET'])
+def list_promo_code(req):
+    promo_codes = PromoCode.objects.all()
+    
+    serializer = PromoCodeSerializer(promo_codes, many=True)
+    return Response({"promo codes": serializer.data})

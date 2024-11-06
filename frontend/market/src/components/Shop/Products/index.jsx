@@ -13,17 +13,60 @@ import "@smastrom/react-rating/style.css";
 import axios from "axios";
 import useCart from "@/hooks/useCart";
 import { Toaster } from "react-hot-toast";
+import { usePriceSorting } from "@/contexts/priceContext";
+import { useColorsSorting } from "@/contexts/colorsContext";
+import { useSizesSorting } from "@/contexts/sizesContext";
+import { useStylesSorting } from "@/contexts/stylesContext";
 
 const Products = ({ toggleFilters }) => {
   const router = useRouter();
   const { cart, addToCart } = useCart();
-  const start =  0;
+  const start = 0;
   let end = 8;
   const [isOpenDropdown, setIsOpenDropdown] = useState(false);
-  const [selectedValue, setSelectedValue] = useState("Casual");
+  const [selectedValue, setSelectedValue] = useState("aa");
   const [products, setProducts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
+  const [filteredProducts, setFilteredProducts] = useState([]);
   const itemsPerPage = 9;
+  const { priceValue } = usePriceSorting();
+  const [minPrice, maxPrice] = priceValue;
+  const { selectedColors } = useColorsSorting();
+  const { selectedSizes } = useSizesSorting();
+  const { selectedStyles } = useStylesSorting();
+
+  useEffect(() => {
+    const filterUpdatedProducts = products.filter((product) => {
+      const isWithinPriceRange =
+        product.price >= minPrice && product.price <= maxPrice;
+      const isColorSelected =
+        selectedColors.length === 0 ||
+        product.colors.some((color) => selectedColors.includes(color));
+      const isSizesSelected =
+        selectedSizes.length === 0 ||
+        product.sizes.some((size) => selectedSizes.includes(size));
+      const isStylesSelected =
+        selectedStyles.length === 0 ||
+        (typeof product.category === "string" &&
+          selectedStyles.includes(product.category));
+
+      return (
+        isWithinPriceRange &&
+        isColorSelected &&
+        isSizesSelected &&
+        isStylesSelected
+      );
+    });
+
+    setFilteredProducts(filterUpdatedProducts);
+  }, [
+    products,
+    minPrice,
+    maxPrice,
+    selectedColors,
+    selectedSizes,
+    selectedStyles,
+  ]);
 
   const getProducts = async () => {
     try {
@@ -39,9 +82,9 @@ const Products = ({ toggleFilters }) => {
   };
 
   const LoadMore = () => {
-    end += 9
-    getProducts()
-  }
+    end += 9;
+    getProducts();
+  };
 
   const toggleDropdown = () => setIsOpenDropdown(!isOpenDropdown);
 
@@ -69,7 +112,6 @@ const Products = ({ toggleFilters }) => {
       image: item.image,
       price: item.price,
       discount: item.discount,
-      new_price: item.new_price,
       description: item.description,
       colors: item.colors,
       sizes: item.sizes,
@@ -100,7 +142,11 @@ const Products = ({ toggleFilters }) => {
   };
 
   return (
-    <div className={css.products}>
+    <div
+      className={cn(css.products, {
+        [css.add__width]: filteredProducts.length === 0,
+      })}
+    >
       <Toaster />
       <div className={css.products__params}>
         <h3 className={css.products__title}>{selectedValue}</h3>
@@ -140,95 +186,105 @@ const Products = ({ toggleFilters }) => {
           onClick={toggleFilters}
         />
       </div>
-      <ul className={css.products__list}>
-        {products.map(
-          ({
-            id,
-            title,
-            image,
-            price,
-            rating,
-            availability_status,
-            discount,
-            description,
-            colors,
-            sizes,
-            category,
-            sex,
-          }) => (
-            <li className={cn(css.products__item)} key={id}>
-              <Link className={css.product__link} href={`/shop/${category}/${sex}/${id}`}>
-                <div
-                  className={cn(css.image__wrapper, {
-                    [css.not__available]:
-                      availability_status === "not_available",
-                  })}
+      {filteredProducts.length > 0 ? (
+        <ul className={css.products__list}>
+          {filteredProducts.map(
+            ({
+              id,
+              title,
+              image,
+              price,
+              rating,
+              availability_status,
+              discount,
+              description,
+              colors,
+              sizes,
+              category,
+              sex,
+            }) => (
+              <li className={cn(css.products__item)} key={id}>
+                <Link
+                  className={css.product__link}
+                  href={`/shop/${category}/${sex}/${id}`}
                 >
-                  <Image
-                    className={css.products__image}
-                    src={image}
-                    alt={title}
-                    width={270}
-                    height={270}
-                  />
-                </div>
-                <div className={css.product__info}>
-                  <p className={css.product__name}>{title}</p>
-                  <p className={css.product__rating}>
-                    <Rating
-                      value={rating}
-                      readOnly
-                      style={{ maxWidth: 110 }}
+                  <div
+                    className={cn(css.image__wrapper, {
+                      [css.not__available]:
+                        availability_status === "not_available",
+                    })}
+                  >
+                    <Image
+                      className={css.products__image}
+                      src={image}
+                      alt={title}
+                      width={270}
+                      height={270}
                     />
-                    <div>{rating}/5</div>
-                  </p>
-                  <div className={css.product__price}>
-                    <p>${price}</p>
-                    {discount !== 0 && (
-                      <div className={css.discount__info}>
-                        <p className={css.old__price}>
-                          ${countDiscount(price, discount)}
-                        </p>
-                        <p className={css.discount__price}>-{discount}%</p>
-                      </div>
-                    )}
                   </div>
-                </div>
-              </Link>
-              {availability_status === "in_stock" && (
-                <button
-                  className={cn({
-                    [css.add__to__cart]: availability_status === "in_stock",
-                  })}
-                  onClick={(e) =>
-                    handleAddToCart(
-                      {
-                        id,
-                        title,
-                        image,
-                        price,
-                        rating,
-                        availability_status,
-                        discount,
-                        description,
-                        colors,
-                        sizes,
-                        category,
-                        sex,
-                      },
-                      e
-                    )
-                  }
-                >
-                </button>
-              )}
-            </li>
-          )
-        )}
-      </ul>
-      <div className={css.products__pagination}>
-        <button className={css.pagination__button} onClick={() => LoadMore()}>Load more</button>
-      </div>
+                  <div className={css.product__info}>
+                    <p className={css.product__name}>{title}</p>
+                    <p className={css.product__rating}>
+                      <Rating
+                        value={rating}
+                        readOnly
+                        style={{ maxWidth: 110 }}
+                      />
+                      <div>{rating}/5</div>
+                    </p>
+                    <div className={css.product__price}>
+                      <p>${price}</p>
+                      {discount !== 0 && (
+                        <div className={css.discount__info}>
+                          <p className={css.old__price}>
+                            ${countDiscount(price, discount)}
+                          </p>
+                          <p className={css.discount__price}>-{discount}%</p>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                </Link>
+                {availability_status === "in_stock" && (
+                  <button
+                    className={cn({
+                      [css.add__to__cart]: availability_status === "in_stock",
+                    })}
+                    onClick={(e) =>
+                      handleAddToCart(
+                        {
+                          id,
+                          title,
+                          image,
+                          price,
+                          rating,
+                          availability_status,
+                          discount,
+                          description,
+                          colors,
+                          sizes,
+                          category,
+                          sex,
+                        },
+                        e
+                      )
+                    }
+                  ></button>
+                )}
+              </li>
+            )
+          )}
+        </ul>
+      ) : (
+        <h4 className={css.not__found}>Not products was found</h4>
+      )}
+      {filteredProducts.length > 0 ? (
+        <div className={css.products__pagination}>
+          <button className={css.pagination__button} onClick={LoadMore}>
+            Load more
+          </button>
+        </div>
+      ) : null}
     </div>
   );
 };

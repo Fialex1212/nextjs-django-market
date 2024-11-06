@@ -58,7 +58,7 @@ const Cart = () => {
                           <h4 className={css.item__title}>{item.title}</h4>
                           <div className={css.item__params}>
                             <p>Size:</p>
-                            <p>{item.size.name}</p>
+                            <p>{item.size}</p>
                           </div>
                           <div className={css.item__params}>
                             <p>Color:</p>

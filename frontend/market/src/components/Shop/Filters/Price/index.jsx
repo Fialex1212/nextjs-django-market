@@ -1,10 +1,14 @@
+"use client"
+
 import css from "./style.module.css";
 import cn from "classnames";
 import React, { useState } from "react";
 import RangeSlider from "./RangeSlider/RangeSlider";
+import { usePriceSorting } from "@/contexts/priceContext";
 
 const Price = ({ isPriceOpen, setIsPriceOpen }) => {
-  const [values, setValues] = useState([1, 100]);
+  
+  const {priceValue, setPriceValue} = usePriceSorting()
 
   const togglePrice = (e) => {
     e.stopPropagation();
@@ -19,7 +23,7 @@ const Price = ({ isPriceOpen, setIsPriceOpen }) => {
       >
         Price
       </h4>
-      {isPriceOpen && <RangeSlider values={values} setValues={setValues} />}
+      {isPriceOpen && <RangeSlider priceValue={priceValue} setPriceValue={setPriceValue} />}
     </div>
   );
 };

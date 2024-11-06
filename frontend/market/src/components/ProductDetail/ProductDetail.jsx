@@ -1,8 +1,11 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import css from "./style.module.css"
 import Image from "next/image";
 import axios from "axios";
+import ProductShowcase from "./ProductShowcase"
+import ProductTabs from "./ProductTabs";
 
 const ProductDetail = ({ category, sex, id }) => {
   const [product, setProduct] = useState({});
@@ -30,12 +33,14 @@ const ProductDetail = ({ category, sex, id }) => {
   console.log(JSON.stringify(product, null, 2));
 
   return (
-    <div>
-        <Image src={`http://127.0.0.1:8000/${product.image}`}  alt={product.title} width={100} height={100} />
-      <h2>Product Category: {product.category}</h2>
-      <h2>Sex: {product.sex}</h2>
-      <p>Product ID: {product.id}</p>
-    </div>
+    <section className={css.product}>
+      <div className="container">
+        <div className={css.product__inner}>
+          <ProductShowcase product={product} />
+          <ProductTabs />
+        </div>
+      </div>
+    </section>
   );
 };
 export default ProductDetail;

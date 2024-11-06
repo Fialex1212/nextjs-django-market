@@ -2,8 +2,10 @@ import React from "react";
 import css from "./style.module.css";
 import ReactSlider from "react-slider";
 
-const RangeSlider = ({ values, setValues }) => {
-  const handleChange = (newValues) => setValues(newValues);
+const RangeSlider = ({ priceValue, setPriceValue }) => {
+  const handleChange = (newValues) => {
+    setPriceValue(newValues);
+  };
 
   return (
     <>
@@ -12,10 +14,10 @@ const RangeSlider = ({ values, setValues }) => {
           className={css.slider}
           thumbClassName={css.thumb}
           trackClassName={css.track}
-          value={values}
+          value={priceValue}
           onChange={handleChange}
-          min={1}
-          max={100}
+          min={0}
+          max={1000}
           renderThumb={(props, state) => (
             <div {...props} className={css.thumb}>
               <span className={css.thumbLabel}>${state.valueNow}</span>

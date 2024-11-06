@@ -1,12 +1,26 @@
+import { useStylesSorting } from "@/contexts/stylesContext";
 import { stylesData } from "../../utils";
 import css from "./style.module.css";
 import cn from "classnames";
 import Link from "next/link";
+import toast, {Toastre} from "react-hot-toast";
 
 const Styles = ({ isStylesOpen, setIsStylesOpen }) => {
   const toggleStyles = (e) => {
     e.stopPropagation();
     setIsStylesOpen(!isStylesOpen);
+  };
+
+  const { selectedStyles, setSelectedStyles } = useStylesSorting();
+
+  const handleStyleClick = (name) => {
+    if (selectedStyles.includes(name)) {
+      setSelectedStyles(selectedStyles.filter((style) => style !== name));
+      toast.success(`You deleted style ${name}`);
+    } else {
+      setSelectedStyles([...selectedStyles, name]);
+      toast.success(`You selected style ${name}`);
+    }
   };
 
   return (
@@ -19,9 +33,14 @@ const Styles = ({ isStylesOpen, setIsStylesOpen }) => {
       </h4>
       {isStylesOpen && (
         <ul className={css.styles__list}>
-          {stylesData.map(({ name, slug }, index) => (
+          {stylesData.map(({ name }, index) => (
             <li className={css.styles__item} key={index}>
-              <Link className={css.styles__link} href={slug}>{name}</Link>
+              <input
+                className={css.styles__link}
+                type="checkbox"
+                onClick={() => handleStyleClick(name)}
+              />
+              <p>{name}</p>
             </li>
           ))}
         </ul>
