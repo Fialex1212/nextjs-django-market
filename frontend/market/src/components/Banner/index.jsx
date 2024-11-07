@@ -1,6 +1,7 @@
 "use client";
 
 import css from "./style.module.css";
+import Link from "next/link";
 import Image from "next/image";
 import banner from "../../app/static/images/banner/mainPhone.jpg";
 
@@ -18,10 +19,10 @@ const Banner = () => {
               designed to bring out your individuality and cater to your sense
               of style.
             </p>
-            <button className={css.banner__button}>Shop Now</button>
+            <button className={css.banner__button}><Link className={css.banner__link} href={"/shop"}>Shop Now</Link></button>
             <div className={css.banner__stats}>
               <div className={css.banner__stat}>
-                <h5 className={css.stat__title}>200+</h5>
+                <h5 className={css.stat__title}>200+</h5> 
                 <p className={css.stat__subtitle}>International Brands</p>
               </div>
               <div className={css.banner__stat}>

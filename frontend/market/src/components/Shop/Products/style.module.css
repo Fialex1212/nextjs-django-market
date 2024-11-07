@@ -29,15 +29,18 @@
     right: -10px;
     display: flex;
     flex-direction: column;
+    width: 130px;
     gap: 15px;
     padding: 15px;
     border-radius: 10px;
     background-color: var(--white);
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    z-index: 3;
 }
 
 .sortby__item{
     cursor: pointer;
+
 }
 
 .products__title{
@@ -79,14 +82,14 @@
 .add__to__cart{
     content: ' ';
     position: absolute;
-    bottom: 32%;
-    right: 12px;
+    bottom: 5%;
+    right: 5%;
     width: 30px;
     height: 30px;
     border-radius: 50%;
     background-color: var(--white);
     transition: transform .3s ease;
-    z-index: 10;
+    z-index: 2;
 }
 
 .add__to__cart::before{

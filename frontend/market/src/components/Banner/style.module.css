@@ -37,6 +37,20 @@
     color: var(--white);
     border-radius: 62px;
     margin-bottom: 25px;
+    transition: transform .3s ease;
+    cursor: pointer;
+}
+
+.banner__button:hover{
+    transform: scale(1.04);
+}
+
+.banner__link{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .banner__stats{

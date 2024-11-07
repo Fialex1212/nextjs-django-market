@@ -6,6 +6,7 @@ import { PriceSortingProvider } from "@/contexts/priceContext";
 import { ColorsSortingProvider } from "@/contexts/colorsContext";
 import { SizesSortingProvider } from "@/contexts/sizesContext";
 import { StylesSortingProvider } from "@/contexts/stylesContext";
+import { AuthProvider } from "@/contexts/authContext";
 
 const satoshi = localfont({
   src: [
@@ -87,15 +88,17 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en" className={cn(satoshi.className, integralCF.className)}>
-      <PriceSortingProvider>
-        <ColorsSortingProvider>
-          <SizesSortingProvider>
-            <StylesSortingProvider>
-              <body>{children}</body>
-            </StylesSortingProvider>
-          </SizesSortingProvider>
-        </ColorsSortingProvider>
-      </PriceSortingProvider>
+      <AuthProvider>
+        <PriceSortingProvider>
+          <ColorsSortingProvider>
+            <SizesSortingProvider>
+              <StylesSortingProvider>
+                <body>{children}</body>
+              </StylesSortingProvider>
+            </SizesSortingProvider>
+          </ColorsSortingProvider>
+        </PriceSortingProvider>
+      </AuthProvider>
     </html>
   );
 }

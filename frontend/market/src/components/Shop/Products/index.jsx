@@ -86,17 +86,26 @@ const Products = ({ toggleFilters }) => {
     getProducts();
   };
 
-  const toggleDropdown = () => setIsOpenDropdown(!isOpenDropdown);
-
-  const handleSelect = (value) => {
-    setSelectedValue(value);
-    setIsOpenDropdown(false);
+  const toggleDropdown = () => {
+    setIsOpenDropdown(!isOpenDropdown);
   };
 
-  const handleClickOutside = (event) => {
-    if (!event.target.closest(".dropdown")) {
-      setIsOpenDropdown(false);
+  const handleSelect = (value, e) => {
+    setSelectedValue(value);
+    setIsOpenDropdown(false);
+    let sortedProducts = [...filteredProducts];
+    if (value === "Low to High") {
+      sortedProducts.sort((a, b) => a.price - b.price);
+    } else if (value === "High to Low") {
+      sortedProducts.sort((a, b) => b.price - a.price);
+    } else if (value === "New Arrivals") {
+      sortedProducts.sort(
+        (a, b) => new Date(b.created_at) - new Date(a.created_at)
+      );
+    } else if (value === "Top Selling") {
+      sortedProducts.sort((a, b) => b.sales - a.sales);
     }
+    setFilteredProducts(sortedProducts);
   };
 
   const countDiscount = (price, discount) => {
@@ -105,19 +114,24 @@ const Products = ({ toggleFilters }) => {
   };
 
   const handleAddToCart = (item, e) => {
+    e.preventDefault();
     e.stopPropagation();
     addToCart({
       id: item.id,
       title: item.title,
       image: item.image,
       price: item.price,
+      rating: item.rating,
+      availability_status: item.availability_status,
       discount: item.discount,
       description: item.description,
       colors: item.colors,
       sizes: item.sizes,
       category: item.category,
+      sex: item.sex,
+      created_at: item.created_at,
+      updated_at: item.updated_at,
       quantity: item.quantity,
-      availability_status: item.availability_status,
     });
   };
 
@@ -125,10 +139,6 @@ const Products = ({ toggleFilters }) => {
     const start = (currentPage - 1) * itemsPerPage;
     const end = start + itemsPerPage - 1;
     getProducts(start, end);
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
   }, [currentPage]);
 
   const handleNextPage = () => {
@@ -142,11 +152,10 @@ const Products = ({ toggleFilters }) => {
   };
 
   return (
-    <div
-      className={cn(css.products, {
-        [css.add__width]: filteredProducts.length === 0,
-      })}
-    >
+    //{
+    //  [css.add__width]: filteredProducts.length === 0,
+    //}
+    <div className={cn(css.products)}>
       <Toaster />
       <div className={css.products__params}>
         <h3 className={css.products__title}>{selectedValue}</h3>
@@ -221,6 +230,33 @@ const Products = ({ toggleFilters }) => {
                       width={270}
                       height={270}
                     />
+                    {availability_status === "in_stock" && (
+                      <button
+                        className={cn({
+                          [css.add__to__cart]:
+                            availability_status === "in_stock",
+                        })}
+                        onClick={(e) =>
+                          handleAddToCart(
+                            {
+                              id,
+                              title,
+                              image,
+                              price,
+                              rating,
+                              availability_status,
+                              discount,
+                              description,
+                              colors,
+                              sizes,
+                              category,
+                              sex,
+                            },
+                            e
+                          )
+                        }
+                      ></button>
+                    )}
                   </div>
                   <div className={css.product__info}>
                     <p className={css.product__name}>{title}</p>
@@ -245,32 +281,6 @@ const Products = ({ toggleFilters }) => {
                     </div>
                   </div>
                 </Link>
-                {availability_status === "in_stock" && (
-                  <button
-                    className={cn({
-                      [css.add__to__cart]: availability_status === "in_stock",
-                    })}
-                    onClick={(e) =>
-                      handleAddToCart(
-                        {
-                          id,
-                          title,
-                          image,
-                          price,
-                          rating,
-                          availability_status,
-                          discount,
-                          description,
-                          colors,
-                          sizes,
-                          category,
-                          sex,
-                        },
-                        e
-                      )
-                    }
-                  ></button>
-                )}
               </li>
             )
           )}

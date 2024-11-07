@@ -11,7 +11,7 @@ import Cart from "./Cart";
 import { headerData, headerDropMenu, headerInterface } from "./utils";
 
 import cn from "classnames";
-import useAuth from "@/hooks/useAuth";
+import { useAuth } from "@/contexts/authContext";
 
 const Header = () => {
   const { token } = useAuth();
@@ -115,12 +115,24 @@ const Header = () => {
             <Search />
             <Cart />
             {token ? (
-              <Link href="/login">
-                <Image className={css.user} src={user} alt="user-account" />
+              <Link href="/profile">
+                <Image
+                  className={css.user}
+                  src={user}
+                  alt="User profile"
+                  width={24}
+                  height={24}
+                />
               </Link>
             ) : (
-              <Link href="/profile">
-                <Image className={css.user} src={user} alt="user-account" />
+              <Link href="/login">
+                <Image
+                  className={css.user}
+                  src={user}
+                  alt="Login page"
+                  width={24}
+                  height={24}
+                />
               </Link>
             )}
           </div>
