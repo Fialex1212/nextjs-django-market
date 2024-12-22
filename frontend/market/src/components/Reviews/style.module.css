@@ -2,6 +2,12 @@
     margin-bottom: 50px;
 }
 
+.reviews__title{
+    font-size: 48px;
+    font-family: 'IntegralCF';
+    margin-bottom: 40px;
+}
+
 @media screen and (min-width: 768px) {
     .reviews{
         margin-bottom: 80px;

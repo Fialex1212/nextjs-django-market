@@ -1,28 +1,39 @@
 "use client";
 
-import React, { useRef, useState } from 'react';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import 'swiper/css';
-import 'swiper/css/navigation';
-import { Navigation } from 'swiper/modules';
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "swiper/css/navigation";
+import { Rating } from "@smastrom/react-rating";
+import css from "./style.module.css";
+import { reviews } from "./utils";
+import Image from "next/image";
+import checked from "@/app/static/icons/checked.svg"
 
-const SliderReviews = ({breakpoints}) => {
+const SliderReviews = ({ breakpoints }) => {
   return (
     <>
-      <Swiper navigation={true} modules={[Navigation]} className="mySwiper" loop={true} breakpoints={breakpoints}>
-        <h3>OUR HAPPY CUSTOMERS</h3>
-        <SwiperSlide>Slide 1</SwiperSlide>
-        <SwiperSlide>Slide 2</SwiperSlide>
-        <SwiperSlide>Slide 3</SwiperSlide>
-        <SwiperSlide>Slide 4</SwiperSlide>
-        <SwiperSlide>Slide 5</SwiperSlide>
-        <SwiperSlide>Slide 6</SwiperSlide>
-        <SwiperSlide>Slide 7</SwiperSlide>
-        <SwiperSlide>Slide 8</SwiperSlide>
-        <SwiperSlide>Slide 9</SwiperSlide>
+      <Swiper className="mySwiper" loop={true} breakpoints={breakpoints}>
+        {reviews.map((review, index) => (
+          <SwiperSlide key={index}>
+            <div className={css.review__item}>
+              <div className={css.review__rating}>
+                <Rating
+                  value={review.rating}
+                  readOnly
+                  style={{ maxWidth: 110 }}
+                />
+              </div>
+              <div className={css.review__user}>
+                <p>{review.user.email}</p>
+                <Image src={checked} alt="checked" width={19.5} height={19.5} />
+              </div>
+              <p className={css.review__text}>"{review.text}"</p>
+            </div>
+          </SwiperSlide>
+        ))}
       </Swiper>
     </>
   );
-}
+};
 
 export default SliderReviews;

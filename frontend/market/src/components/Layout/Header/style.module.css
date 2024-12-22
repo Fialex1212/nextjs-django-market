@@ -49,7 +49,7 @@
     top: 50%;
     right: 0;
     transform: translate(50%, -50%);
-    background-image: url("../../app/static/icons/arrow.svg");
+    background-image: url("../../../app/static/icons/arrow.svg");
     background-position: center;
     background-repeat: no-repeat;
     background-size: contain;

@@ -1,0 +1,14 @@
+.title{
+    font-size: var(--fz-section-title);
+    max-width: 280px;
+    width: 100%;
+    text-align: center;
+    font-family: 'IntegralCF';
+}
+
+@media screen and (min-width: 992px) {
+    .title{
+        max-width: 600px;
+        width: 100%;
+    }
+}

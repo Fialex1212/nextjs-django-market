@@ -1,18 +1,16 @@
 "use client";
 
 import Discount from "@/components/Discount";
-import Footer from "@/components/Footer";
-import Header from "@/components/Header";
-import Sidebar from "@/components/Header/Sidebar";
+import Footer from "@/components/Layout/Footer";
+import Header from "@/components/Layout/Header";
 import EmailSender from "@/components/EmailSender";
-import { useState } from "react";
+import { Toaster } from "react-hot-toast";
 
 export default function RootLayout({ children }) {
-
   return (
-    <> 
+    <>
       <Discount />
-      <Header/>
+      <Header />
       <main>{children}</main>
       <EmailSender />
       <Footer />

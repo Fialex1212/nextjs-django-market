@@ -6,6 +6,7 @@ import Image from "next/image";
 import axios from "axios";
 import ProductShowcase from "./ProductShowcase"
 import ProductTabs from "./ProductTabs";
+import SimilarProducts from "./SimilarProducts";
 
 const ProductDetail = ({ category, sex, id }) => {
   const [product, setProduct] = useState({});
@@ -38,6 +39,7 @@ const ProductDetail = ({ category, sex, id }) => {
         <div className={css.product__inner}>
           <ProductShowcase product={product} />
           <ProductTabs />
+          <SimilarProducts />
         </div>
       </div>
     </section>

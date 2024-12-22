@@ -13,6 +13,7 @@ import Price from "./Price";
 import Sizes from "./Sizes";
 import Styles from "./Styles";
 import Types from "./Types";
+import Brands from "./Brands";
 
 const Filters = ({ toggleFilters, isFiltersVisilbe }) => {
   const [activeType, setActiveType] = useState("");
@@ -21,6 +22,7 @@ const Filters = ({ toggleFilters, isFiltersVisilbe }) => {
   const [isColorsOpen, setIsColorsOpen] = useState(false);
   const [isSizesOpen, setIsSizesOpen] = useState(false);
   const [isStylesOpen, setIsStylesOpen] = useState(false);
+  const [isBrandsOpen, setIsBrendsOpen] = useState(false);
 
   return (
     <>
@@ -31,7 +33,7 @@ const Filters = ({ toggleFilters, isFiltersVisilbe }) => {
       ></div>
       <div
         className={cn(css.filters, {
-          [css.visible]: isFiltersVisilbe ,
+          [css.visible]: isFiltersVisilbe,
         })}
       >
         <div className={css.filters__header}>
@@ -51,20 +53,15 @@ const Filters = ({ toggleFilters, isFiltersVisilbe }) => {
         </div>
         {/* <Types activeType={activeType} setActiveType={setActiveType} /> */}
         <Price isPriceOpen={isPriceOpen} setIsPriceOpen={setIsPriceOpen} />
-        <Colors
-          isColorsOpen={isColorsOpen}
-          setIsColorsOpen={setIsColorsOpen}
-        />
-        <Sizes
-          isSizesOpen={isSizesOpen}
-          setIsSizesOpen={setIsSizesOpen}
-        />
+        <Colors isColorsOpen={isColorsOpen} setIsColorsOpen={setIsColorsOpen} />
+        <Sizes isSizesOpen={isSizesOpen} setIsSizesOpen={setIsSizesOpen} />
         <Styles
           isStylesOpen={isStylesOpen}
           setIsStylesOpen={setIsStylesOpen}
           activeSubType={activeSubType}
           setActiveSubType={setActiveSubType}
         />
+        <Brands isBrandsOpen={isBrandsOpen} setIsBrendsOpen={setIsBrendsOpen} />
         <button className={css.filters__button}>Apply Filters</button>
       </div>
     </>

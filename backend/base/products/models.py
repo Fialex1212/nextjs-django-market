@@ -76,6 +76,7 @@ class Product(models.Model):
     sizes = models.ManyToManyField(Size)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     type_of_clothes = models.TextField(default="Unknown")
+    brand = models.TextField(default="None")
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     availability_status = models.CharField(

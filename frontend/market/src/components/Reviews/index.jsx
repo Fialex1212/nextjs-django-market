@@ -5,6 +5,7 @@ const Reviews = () => {
   return (
     <section className={css.reviews}>
       <div className="container">
+        <h2 className={css.reviews__title}>OUR HAPPY CUSTOMERS</h2>
         <SliderReviews
           breakpoints={{
             319: {

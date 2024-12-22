@@ -1,14 +1,14 @@
 from datetime import timedelta
+from dotenv import load_dotenv
 from pathlib import Path
 import os
 
+load_dotenv()
+
 BASE_DIR = Path(__file__).resolve().parent.parent
-
 SECRET_KEY = 'django-insecure-0n0yjyaf8vvo@hv175!k=+ozx%lln-3n^4ip3s&v_^53ki&f10'
-
 DEBUG = True
-
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -28,7 +28,6 @@ INSTALLED_APPS = [
     #libraries
     'rest_framework',
     'corsheaders',
-    'django_filters',
 ]
 
 AUTH_USER_MODEL = 'users.CustomUser'
@@ -98,9 +97,6 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-#Not necessary last slash
-APPEND_SLASH = False
-
 #MEDIA
 MEDIA_URL = '/media/'
 
@@ -114,9 +110,9 @@ REST_FRAMEWORK = {
 }
 
 SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=5),
-    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
-    'ROTATE_REFRESH_TOKENS': False,
+    'ACCESS_TOKEN_LIFETIME': timedelta(hours=1),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=7),
+    'ROTATE_REFRESH_TOKENS': True,
     'BLACKLIST_AFTER_ROTATION': True,
 }
 

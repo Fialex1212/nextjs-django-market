@@ -1,5 +1,7 @@
 import { useState } from "react";
 import css from "./style.module.css";
+import axios from "axios";
+import toaster, { Toaster } from "react-hot-toast";
 
 const EmailSender = () => {
   const [formData, setFormData] = useState({
@@ -7,15 +9,28 @@ const EmailSender = () => {
   });
 
   const handleInputChange = (e) => {
-    const {name, value} = e.target;
+    const { name, value } = e.target;
     setFormData((prevData) => ({
       ...prevData,
-      [name]: value
-    }))
+      [name]: value,
+    }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log(formData);
+
+    try {
+      const response = await axios.post(
+        "http://127.0.0.1:8000/api/email/subscribe-to-newsletter/",
+        formData
+      );
+      toaster.success(response.data.message || "Subscribed successfully!");
+      console.log(response.data);
+    } catch (error) {
+      console.log(error);
+      toaster.error(error.response?.data?.message || "An error occurred!");
+    }
     setFormData({
       email: "",
     });
@@ -23,6 +38,7 @@ const EmailSender = () => {
 
   return (
     <section className={css.email}>
+      <Toaster />
       <div className="container">
         <div className={css.email__sender}>
           <h2 className={css.email__title}>

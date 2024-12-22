@@ -17,6 +17,7 @@ import { usePriceSorting } from "@/contexts/priceContext";
 import { useColorsSorting } from "@/contexts/colorsContext";
 import { useSizesSorting } from "@/contexts/sizesContext";
 import { useStylesSorting } from "@/contexts/stylesContext";
+import Sortby from "./Sortby/Sortby";
 
 const Products = ({ toggleFilters }) => {
   const router = useRouter();
@@ -24,7 +25,7 @@ const Products = ({ toggleFilters }) => {
   const start = 0;
   let end = 8;
   const [isOpenDropdown, setIsOpenDropdown] = useState(false);
-  const [selectedValue, setSelectedValue] = useState("aa");
+  const [selectedValue, setSelectedValue] = useState("");
   const [products, setProducts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [filteredProducts, setFilteredProducts] = useState([]);
@@ -104,6 +105,8 @@ const Products = ({ toggleFilters }) => {
       );
     } else if (value === "Top Selling") {
       sortedProducts.sort((a, b) => b.sales - a.sales);
+    } else if(value === "By Rating") {
+      sortedProducts.sort((a, b) => b.rating - a.rating);
     }
     setFilteredProducts(sortedProducts);
   };
@@ -139,7 +142,8 @@ const Products = ({ toggleFilters }) => {
     const start = (currentPage - 1) * itemsPerPage;
     const end = start + itemsPerPage - 1;
     getProducts(start, end);
-  }, [currentPage]);
+    handleSelect("Low to High");
+  }, []);
 
   const handleNextPage = () => {
     setCurrentPage((prevPage) => prevPage + 1);
@@ -159,35 +163,7 @@ const Products = ({ toggleFilters }) => {
       <Toaster />
       <div className={css.products__params}>
         <h3 className={css.products__title}>{selectedValue}</h3>
-        <div className={css.products__sortby}>
-          <p>
-            Sort by:
-            <button
-              onClick={toggleDropdown}
-              className={cn(css.products__dropdown, {
-                [css.active]: isOpenDropdown,
-              })}
-            >
-              {selectedValue}
-            </button>
-          </p>
-          {isOpenDropdown && (
-            <ul className={css.sortby__list}>
-              <li className={css.sortby__item}>
-                <a onClick={() => handleSelect("Low to High")}>Low to High</a>
-              </li>
-              <li className={css.sortby__item}>
-                <a onClick={() => handleSelect("High to Low")}>High to Low</a>
-              </li>
-              <li className={css.sortby__item}>
-                <a onClick={() => handleSelect("New Arrivals")}>New Arrivals</a>
-              </li>
-              <li className={css.sortby__item}>
-                <a onClick={() => handleSelect("Top Selling")}>Top Selling</a>
-              </li>
-            </ul>
-          )}
-        </div>
+        <Sortby handleSelect={handleSelect} toggleDropdown={toggleDropdown} setIsOpenDropdown={setIsOpenDropdown} isOpenDropdown={isOpenDropdown} />
         <Image
           className={css.products__icon}
           src={filtersIcon}

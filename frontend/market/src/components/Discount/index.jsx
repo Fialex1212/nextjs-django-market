@@ -3,10 +3,18 @@
 import css from "./style.module.css";
 import { IoMdClose } from "react-icons/io";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useAuth } from "@/contexts/authContext";
 
 const Discount = () => {
   const [discountShow, setDiscountShow] = useState(true);
+  const {token} = useAuth();
+
+  useEffect(() => {
+    if (token) {
+      setDiscountShow(false);
+    }
+  }, [token]);
 
   return (
     discountShow && (

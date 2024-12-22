@@ -132,14 +132,14 @@ const Slider = ({ breakpoints, data }) => {
                   </div>
                   <div className={css.product__info}>
                     <p className={css.product__name}>{title}</p>
-                    <p className={css.product__rating}>
+                    <div className={css.product__rating}>
                       <Rating
                         value={rating}
                         readOnly
                         style={{ maxWidth: 110 }}
                       />
                       <div>{rating}/5</div>
-                    </p>
+                    </div>
                     <div className={css.product__price}>
                       <p>${price}</p>
                       {discount !== 0 && (

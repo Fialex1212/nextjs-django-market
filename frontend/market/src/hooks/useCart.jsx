@@ -1,11 +1,17 @@
+"use client";
+
 import { useState, useEffect } from "react";
 import toast from "react-hot-toast";
 
 const useCart = () => {
-  const [cart, setCart] = useState(() => {
-    const savedCart = localStorage.getItem("cart");
-    return savedCart ? JSON.parse(savedCart) : [];
-  });
+  const [cart, setCart] = useState([]);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const savedCart = localStorage.getItem("cart");
+      setCart(savedCart ? JSON.parse(savedCart) : []);
+    }
+  }, []);
 
   const addToCart = (item) => {
     const existingItem = cart.find((cartItem) => cartItem.id === item.id);
@@ -22,20 +28,26 @@ const useCart = () => {
     }
 
     setCart(updatedCart);
-    localStorage.setItem("cart", JSON.stringify(updatedCart));
+    if (typeof window !== "undefined") {
+      localStorage.setItem("cart", JSON.stringify(updatedCart));
+    }
     toast.success("Successfully added to your cart");
   };
 
   const deleteFromCart = (id) => {
     const updatedCart = cart.filter((item) => item.id !== id);
     setCart(updatedCart);
-    localStorage.setItem("cart", JSON.stringify(updatedCart));
+    if (typeof window !== "undefined") {
+      localStorage.setItem("cart", JSON.stringify(updatedCart));
+    }
     console.log("Cart after deletion:", updatedCart);
   };
 
   const clearCart = () => {
     setCart([]);
-    localStorage.removeItem("cart");
+    if (typeof window !== "undefined") {
+      localStorage.removeItem("cart");
+    }
   };
 
   const updateItemQuantity = (id, quantity) => {
@@ -45,12 +57,10 @@ const useCart = () => {
       item.id === id ? { ...item, quantity } : item
     );
     setCart(updatedCart);
-    localStorage.setItem("cart", JSON.stringify(updatedCart));
+    if (typeof window !== "undefined") {
+      localStorage.setItem("cart", JSON.stringify(updatedCart));
+    }
   };
-
-  useEffect(() => {
-    localStorage.setItem("cart", JSON.stringify(cart));
-  }, [cart]);
 
   return { cart, addToCart, deleteFromCart, clearCart, updateItemQuantity };
 };

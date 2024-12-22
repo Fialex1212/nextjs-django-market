@@ -1,0 +1,5 @@
+.logout__button{
+    font-size: var(--fz-xmedium);
+    font-weight: 700;
+    cursor: pointer;
+}

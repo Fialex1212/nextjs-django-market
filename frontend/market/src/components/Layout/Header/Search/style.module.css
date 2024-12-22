@@ -63,7 +63,7 @@
         background-size: contain;
         background-position: center;
         background-repeat: no-repeat;
-        background-image: url(../../../app/static/icons/header/search.svg);
+        background-image: url(../../../../app/static/icons/header/search.svg);
         width: 20px;
         height: 20px;
     }

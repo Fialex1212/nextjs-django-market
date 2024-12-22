@@ -1,0 +1,30 @@
+.tabs__container{
+    width: 100%;
+}
+
+.tabs__header{
+    width: 100%;
+}
+
+.tabs__list{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.tabs__item{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    color: var(--text-color-darkened);
+    cursor: pointer;
+    border-bottom: 1px solid #888888;
+    padding: 24px 0;
+    font-size: var(--fz-medium);
+}
+
+.active{
+    color: var(--black);
+    border-bottom: 2px solid #000;
+}

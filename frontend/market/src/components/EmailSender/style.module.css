@@ -16,6 +16,7 @@
 
 .input__inner{
     position: relative;
+    width: fit-content;
 }
 
 .input__inner::before{
@@ -52,9 +53,9 @@
 }
 
 .email__form{
-    width: fit-content;
     display: flex;
     flex-direction: column;
+    align-items: center;
     row-gap: 12px;
 }
 
@@ -62,7 +63,7 @@
     position: relative;
     background-color: var(--white);
     color: var(--black);
-    width: 310px;
+    width: 260px;
     border-radius: 62px;
     height: 42px;
     padding-left: 42px;
@@ -86,11 +87,18 @@
 .email__button{
     background-color: var(--white);
     color: var(--black);
-    width: 310px;
+    width: 260px;
     border-radius: 62px;
     height: 42px;
     font-weight: 500;
     cursor: pointer;
+}
+
+@media screen and (min-width: 400px){
+    .email__input,
+    .email__button{
+        width: 310px;
+    }
 }
 
 @media screen and (min-width: 768px){
