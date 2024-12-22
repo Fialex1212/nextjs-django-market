@@ -5,14 +5,17 @@ from rest_framework.permissions import IsAuthenticated
 from .serializers import UserSerializers, UserUpdateSerializers
 from rest_framework import generics
 from .models import CustomUser, EmailVerification
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import authenticate
 from django.core.mail import send_mail
 from django.utils.timezone import now
 from datetime import timedelta
 from django.conf import settings
 import random
+from rest_framework_simplejwt.tokens import RefreshToken
+from rest_framework.permissions import AllowAny
 
 class RegisterView(APIView):
+
     def post(self, request):
         fullname = request.data.get("fullname")
         email = request.data.get("email")
@@ -42,6 +45,7 @@ class RegisterView(APIView):
         return Response({'message': 'Verification email sent. Please check your email.'}, status=status.HTTP_200_OK)
 
 class VerifyEmailView(APIView):
+
     def post(self, request):
         fullname = request.data.get("fullname")
         email = request.data.get("email")
@@ -74,11 +78,14 @@ class LoginView(APIView):
         user = authenticate(request, email=email, password=password)
 
         if user is None:
+            print(f"Authentication failed for email: {email}")
             return Response({'error': 'Invalid credentials.'}, status=status.HTTP_401_UNAUTHORIZED)
 
-        login(request, user)
-        
-        return Response({
+
+        refresh = RefreshToken.for_user(user)
+        access = refresh.access_token
+
+        response = Response({
             'message': 'Login successful.',
             'user': {
                 'id': user.id,
@@ -86,16 +93,20 @@ class LoginView(APIView):
                 'email': user.email,
             }
         }, status=status.HTTP_200_OK)
+        response.set_cookie('refresh_token', str(refresh), httponly=True, samesite='Lax')
+        response.set_cookie('access_token', str(access), httponly=True, samesite='Lax')
+
+        return response
         
 
 class LogoutView(APIView):
     def post(self, request):
-        if request.user.is_authenticated:
-            logout(request)
-            return Response({'message': 'Logout successful.'}, status=status.HTTP_200_OK)
-        else:
-            return Response({'error': 'User is not authenticated.'}, status=status.HTTP_401_UNAUTHORIZED)
+        response = Response({'message': 'Logout successful.'}, status=status.HTTP_200_OK)
+        response.delete_cookie('refresh_token')
+        response.delete_cookie('access_token')
+        return response
     
+
 class UserListCreateView(generics.ListCreateAPIView):
     queryset = CustomUser.objects.all()
     serializer_class = UserSerializers

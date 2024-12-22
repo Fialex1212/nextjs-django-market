@@ -46,7 +46,7 @@ const SignUp = () => {
         password: password,
       };
       try {
-        register(userData);
+        await register(userData);
         toast.success("Verify your email");
       } catch (error) {
         toast.error("Something went wrong...");
@@ -68,7 +68,7 @@ const SignUp = () => {
     };
     console.log(userData);
     try {
-      codeSubmit(userData);
+      await codeSubmit(userData);
       toast.success("Email verified. User created successfully.");
       sendWellcomeEmail();
       router.push("/auth/login");

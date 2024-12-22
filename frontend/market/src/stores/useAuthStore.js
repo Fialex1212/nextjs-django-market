@@ -23,6 +23,7 @@ export const useAuthStore = create((set) => {
             withCredentials: true,
           }
         );
+        console.log(response.data);
         const { user } = response.data;
         if (user) {
           localStorage.setItem("userData", JSON.stringify(user));
@@ -39,12 +40,15 @@ export const useAuthStore = create((set) => {
         });
         localStorage.removeItem("userData");
         set({ user: null, isAuthenticated: false });
+        console.log(response.data);
+        
       } catch (error) {
         throw error;
       }
     },
     register: async (data) => {
       set({ isLoading: true });
+      console.log(data);
       try {
         const response = await axios.post(
           "http://localhost:8000/api/users/register/",

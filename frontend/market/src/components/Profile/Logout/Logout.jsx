@@ -14,9 +14,7 @@ const Logout = () => {
     try {
       logout()
       toast.success("You are successfully logged out!!!");
-      setTimeout(() => {
-        router.push("/login"); 
-      }, 1000);
+      router.push("/auth/login"); 
     } catch (error) {
       toast.error("Logout failed. Please try again.");
     }
@@ -24,7 +22,7 @@ const Logout = () => {
 
   return (
     <div>
-      <button className={css.logout__button} onClick={logout}>Logout</button>
+      <button className={css.logout__button} onClick={handleLogout}>Logout</button>
     </div>
   );
 };
