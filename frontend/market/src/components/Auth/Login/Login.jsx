@@ -1,17 +1,16 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 import css from "./style.module.css";
 import Link from "next/link";
 import cn from "classnames";
 import { useRouter } from "next/navigation";
-import useAuth from "@/hooks/useAuth";
-import axios from "axios";
-import toast, { Toaster } from "react-hot-toast";
+import { Toaster } from "react-hot-toast";
+import { useAuthStore } from "../../../stores/useAuthStore";
 
 const Login = () => {
   const router = useRouter();
-  const { token, updateToken } = useAuth();
+  const { isAuthenticated, login } = useAuthStore();
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -27,25 +26,18 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(
-        "http://127.0.0.1:8000/api/users/login/",
-        formData
-      );
-      console.log(response.data.access);
-      updateToken(response.data.access);
-      toast.success("Login successfully!!!");
+      login(formData);
       router.push("/");
     } catch (error) {
-      toast.error("Something went wrong...");
       console.log(error);
     }
   };
 
   useEffect(() => {
-    if (token) {
+    if (isAuthenticated) {
       router.push("/");
     }
-  }, [token, router]);
+  }, [isAuthenticated]);
 
   return (
     <section className={css.login}>
@@ -81,7 +73,7 @@ const Login = () => {
             </button>
           </form>
           <p>
-            Don't have a account? <Link href="/sign-up">Sign up</Link>
+            Don't have a account? <Link href="/auth/sign-up">Sign up</Link>
           </p>
         </div>
       </div>

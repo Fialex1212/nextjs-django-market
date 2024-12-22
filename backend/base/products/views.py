@@ -109,14 +109,14 @@ class ProductDetailView(APIView):
             for product in products
         ]
         
-@api_view(['GET'])
-def search_products(request):
-    query = request.GET.get('query', '')
-    if query:
-        results = Product.objects.filter(title__icontains=query)
-        serializer = ProductSerializer(results, many=True)
-        return Response(serializer.data)
-    return Response([])
+class ProductsSearchView(APIView):
+    def get(self, request):
+        query = request.GET.get('query', '')
+        if query:
+            results = Product.objects.filter(title__icontains=query)
+            serializer = ProductSerializer(results, many=True)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response([])
 
 @api_view(['POST'])
 def apply_promo_code(req):

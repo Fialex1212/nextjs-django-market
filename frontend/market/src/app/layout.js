@@ -1,8 +1,7 @@
 import "./globals.css";
 import cn from "classnames";
 import localfont from "next/font/local";
-import { siteMetadata } from "./utils/metaData";
-import { AuthProvider } from "@/contexts/authContext";
+import { siteMetadata } from "@/app/utils/metadata";
 import { PriceSortingProvider } from "@/contexts/priceContext";
 import { ColorsSortingProvider } from "@/contexts/colorsContext";
 import { SizesSortingProvider } from "@/contexts/sizesContext";
@@ -90,7 +89,6 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" className={cn(satoshi.className, integralCF.className)}>
       <head><link rel="icon" href="/static/icons/black-logo.svg"></link></head>
-      <AuthProvider>
         <PriceSortingProvider>
           <ColorsSortingProvider>
             <SizesSortingProvider>
@@ -102,7 +100,6 @@ export default function RootLayout({ children }) {
             </SizesSortingProvider>
           </ColorsSortingProvider>
         </PriceSortingProvider>
-      </AuthProvider>
     </html>
   );
 }

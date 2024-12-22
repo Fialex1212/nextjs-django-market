@@ -8,13 +8,13 @@ import user from "@/app/static/icons/header/user.svg";
 import Sidebar from "./Sidebar";
 import Search from "./Search";
 import Cart from "./Cart";
-import { headerData, headerDropMenu, headerInterface } from "./utils";
+import { headerData, headerDropMenu } from "./utils";
 
 import cn from "classnames";
-import { useAuth } from "@/contexts/authContext";
+import { useAuthStore } from "@/stores/useAuthStore";
 
 const Header = () => {
-  const { token } = useAuth();
+  const { isAuthenticated } = useAuthStore();
   const [isDropDownMenu, setIsDropDownMenu] = useState(false);
   const [isSidebarDropDownMenu, setIsSidebarDropDownMenu] = useState(false);
   const [isSidebarVisible, setIsSidebarVisible] = useState(false);
@@ -114,7 +114,7 @@ const Header = () => {
           <div className={css.header__interface}>
             <Search />
             <Cart />
-            {token ? (
+            {isAuthenticated ? (
               <Link href="/profile">
                 <Image
                   className={css.user}
@@ -125,7 +125,7 @@ const Header = () => {
                 />
               </Link>
             ) : (
-              <Link href="/login">
+              <Link href="/auth/login">
                 <Image
                   className={css.user}
                   src={user}

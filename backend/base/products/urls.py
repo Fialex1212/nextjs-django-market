@@ -9,7 +9,7 @@ from .views import (
     SizeDetailView,
     ProductsListCreateView,
     ProductDetailView,
-    search_products
+    ProductsSearchView,
 )
 
 urlpatterns = [
@@ -30,5 +30,6 @@ urlpatterns = [
     path('<str:category>/<str:sex>/<uuid:id>/', ProductDetailView.as_view(), name="product-detail"),
     
     #Searching
-    path("search/", search_products, name="searching"),
+    path('search/', ProductsSearchView.as_view(), name='products-search'),
+
 ]

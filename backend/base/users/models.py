@@ -1,7 +1,12 @@
 import uuid
+from django.utils.timezone import now
+from datetime import timedelta
 from django.utils import timezone
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, UserManager, Group, Permission
+
+def calculate_expires_at():
+    return timezone.now() + timedelta(minutes=3)
 
 class CustomUserManager(UserManager):
     def _create_user(self, email, password, **extra_fields):
@@ -28,6 +33,7 @@ class CustomUserManager(UserManager):
 class CustomUser(AbstractBaseUser, PermissionsMixin):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     email = models.EmailField(blank=True, unique=True)
+    fullname = models.CharField(blank=True, max_length=255)
     
     is_active = models.BooleanField(default=True)
     is_superuser = models.BooleanField(default=False)
@@ -50,3 +56,14 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
         
     def get_name(self):
         return self.name
+    
+class EmailVerification(models.Model):
+    email = models.EmailField(unique=True)
+    code = models.CharField(max_length=6)
+    expires_at = models.DateTimeField(default=calculate_expires_at)
+    
+    def is_expired(self):
+        return now()> self.expires_at
+    
+    def __str__(self):
+        return f"{self.email} - {self.code}"

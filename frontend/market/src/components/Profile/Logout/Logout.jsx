@@ -1,19 +1,18 @@
 "use client"
 
-import useAuth from "@/hooks/useAuth";
 import css from "./style.module.css";
 import { useRouter } from "next/navigation";
-import { useEffect } from "react";
 import toast, {Toaster} from "react-hot-toast";
+import { useAuthStore } from "@/stores/useAuthStore";
 
 const Logout = () => {
   const router = useRouter();
-  const { token, clearToken } = useAuth();
+  const {logout} = useAuthStore();
 
-  const logout = (e) => {
+  const handleLogout = (e) => {
     e.preventDefault();
     try {
-      localStorage.removeItem('jwt-token')
+      logout()
       toast.success("You are successfully logged out!!!");
       setTimeout(() => {
         router.push("/login"); 
@@ -25,7 +24,7 @@ const Logout = () => {
 
   return (
     <div>
-      <button className={css.logout__button} onClick={logout}>Logout button</button>
+      <button className={css.logout__button} onClick={logout}>Logout</button>
     </div>
   );
 };

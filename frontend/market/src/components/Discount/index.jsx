@@ -4,17 +4,17 @@ import css from "./style.module.css";
 import { IoMdClose } from "react-icons/io";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { useAuth } from "@/contexts/authContext";
+import { useAuthStore } from "@/stores/useAuthStore";
 
 const Discount = () => {
   const [discountShow, setDiscountShow] = useState(true);
-  const {token} = useAuth();
+  const { isAuthenticated } = useAuthStore();
 
   useEffect(() => {
-    if (token) {
+    if (isAuthenticated) {
       setDiscountShow(false);
     }
-  }, [token]);
+  }, [isAuthenticated]);
 
   return (
     discountShow && (

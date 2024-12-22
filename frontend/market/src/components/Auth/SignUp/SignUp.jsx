@@ -1,17 +1,20 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import css from "./style.module.css";
 import Link from "next/link";
 import cn from "classnames";
 import { useRouter } from "next/navigation";
-import useAuth from "@/hooks/useAuth";
 import toast, { Toaster } from "react-hot-toast";
 import axios from "axios";
+import { useAuthStore } from "@/stores/useAuthStore";
+import Popup from "./Popup/Popup";
 
 const SignUp = () => {
   const router = useRouter();
-  const { token } = useAuth();
+  const { register, isAuthenticated, codeSubmit } = useAuthStore();
+  const [code, setCode] = useState("");
+  const [fullname, setFullname] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [repeatPassword, setRepeatPassword] = useState("");
@@ -22,39 +25,29 @@ const SignUp = () => {
       subject: "Welcome to your online shop of clothes",
       message:
         "Welcome to your online shop of clothes, take this code for -20% discount",
-    };  
+    };
 
     try {
       const response = await axios.post(
         "http://127.0.0.1:8000/api/email/send-email/",
         emailPayload
       );
-      toast.success("Welcome email sent successfully!");
     } catch (error) {
-      toast.error("Failed to send welcome email.");
-      console.log("Email send error: ", error.response.data); // Log specific error response
+      console.log("Email send error: ", error.response.data);
     }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (password == repeatPassword) {
+      const userData = {
+        fullname: fullname,
+        email: email,
+        password: password,
+      };
       try {
-        const response = await axios.post(
-          "http://127.0.0.1:8000/api/users/register/",
-          {
-            email,
-            password,
-          }
-        );
-        console.log({
-          email,
-          password,
-        });
-        console.log(response.data);
-        router.push("/login");
-        toast.success("Register successfully!!!");
-        sendWellcomeEmail();
+        register(userData);
+        toast.success("Verify your email");
       } catch (error) {
         toast.error("Something went wrong...");
         console.log(error);
@@ -63,6 +56,33 @@ const SignUp = () => {
       toast.error("Passwords don't match!");
     }
   };
+
+  const handleCodeSubmit = async (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    const userData = {
+      code: code,
+      email: email,
+      fullname: fullname,
+      password: password,
+    };
+    console.log(userData);
+    try {
+      codeSubmit(userData);
+      toast.success("Email verified. User created successfully.");
+      sendWellcomeEmail();
+      router.push("/auth/login");
+    } catch (error) {
+      toast.error("Something went wrong. Please try again.");
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      router.push("/")
+    }
+  }, [isAuthenticated])
 
   return (
     <section className={css.login}>
@@ -75,9 +95,20 @@ const SignUp = () => {
               <input
                 className={css.form__input}
                 type="text"
+                placeholder="Fullname"
+                value={fullname}
+                onChange={(e) => setFullname(e.target.value)}
+                required
+              />
+            </label>
+            <label>
+              <input
+                className={css.form__input}
+                type="text"
                 placeholder="Email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
+                required
               />
             </label>
             <label>
@@ -88,6 +119,7 @@ const SignUp = () => {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 name="password"
+                required
               />
             </label>
             <label>
@@ -98,6 +130,7 @@ const SignUp = () => {
                 value={repeatPassword}
                 onChange={(e) => setRepeatPassword(e.target.value)}
                 name="password2"
+                required
               />
             </label>
             <button className={css.form__button} type="submit">
@@ -105,10 +138,31 @@ const SignUp = () => {
             </button>
           </form>
           <p>
-            Already have a account? <Link href="/login">Login</Link>
+            Already have a account? <Link href="/auth/login">Login</Link>
           </p>
         </div>
       </div>
+      <Popup>
+        <div>
+          <form className={css.code__form} onSubmit={handleCodeSubmit}>
+            <h3 className={css.code__title}>Verify your email</h3>
+            <label>
+              <input
+                className={css.form__input}
+                type="text"
+                placeholder="Enter your code"
+                name="code"
+                value={code}
+                onChange={(e) => setCode(e.target.value)}
+                required
+              />
+            </label>
+            <button className={css.form__button} type="submit">
+              Verify email
+            </button>
+          </form>
+        </div>
+      </Popup>
     </section>
   );
 };
