@@ -4,7 +4,6 @@ import { useState, useEffect } from "react";
 import Filters from "./Filters";
 import Products from "./Products";
 import css from "./style.module.css";
-import toast, { Toaster } from "react-hot-toast";
 
 const Shop = () => {
   const [isFiltersVisilbe, setIsFiltersVisible] = useState(false);
@@ -30,7 +29,6 @@ const Shop = () => {
         <div className={css.shop__inner}>
           <Filters toggleFilters={toggleFilters} isFiltersVisilbe={isFiltersVisilbe} />
           <Products toggleFilters={toggleFilters} />
-          <Toaster />
         </div>
       </div>
     </section>

@@ -18,6 +18,15 @@ const Sidebar = ({
       <aside className={cn(css.sidebar__menu, { [css.show]: isVisible })}>
         <ul className={css.sidebar__list}>
           <li className={css.sidebar__item}>
+            <Link href={"/profile"}>Profile</Link>
+          </li>
+          <li className={css.sidebar__item}>
+            <Link href={"/cart"}>Cart</Link>
+          </li>
+          <li className={css.sidebar__item}>
+            <Link href={"/search"}>Search</Link>
+          </li>
+          <li className={css.sidebar__item}>
             <button
               className={cn(css.header__button, {
                 [css.active]: isSideBarDropDownMenu,

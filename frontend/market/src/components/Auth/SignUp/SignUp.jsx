@@ -5,7 +5,7 @@ import css from "./style.module.css";
 import Link from "next/link";
 import cn from "classnames";
 import { useRouter } from "next/navigation";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 import axios from "axios";
 import { useAuthStore } from "@/stores/useAuthStore";
 import Popup from "./Popup/Popup";
@@ -86,7 +86,6 @@ const SignUp = () => {
 
   return (
     <section className={css.login}>
-      <Toaster />
       <div className={cn(css.login__container, "container")}>
         <div className={css.login__wrapper}>
           <h2 className={css.login__title}>Sign up</h2>

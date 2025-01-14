@@ -1,0 +1,20 @@
+.breadcrumbs {
+  margin: 16px 0;
+  font-size: var(--fz-samll);
+}
+
+.breadcrumb__list {
+  display: flex;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.separator{
+    margin: 0 6px;
+}
+
+.breadcrumb__link{
+    text-decoration: none;
+    cursor: pointer;
+}

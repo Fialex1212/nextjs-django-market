@@ -7,7 +7,7 @@ export const useAuthStore = create((set) => {
 
   return {
     user: parsedUser,
-    isAuthenticated: parsedUser !== null,
+    isAuthenticated: false,
     isLoading: false,
     isPopup: false,
     setIsPopup: (value) => set((state) => ({ isPopup: value !== undefined ? value : !state.isPopup })),

@@ -104,6 +104,7 @@ legend {
 
 @media screen and (min-width: 992px){
   :root {
+    --fz-sssamll: 12px;
     --fz-ssmall: 14px;
     --fz-small: 16px;
     --fz-medium: 20px;

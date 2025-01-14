@@ -2,13 +2,13 @@
 
 import css from "./style.module.css";
 import cn from "classnames";
-import React, { useState } from "react";
+import React from "react";
 import RangeSlider from "./RangeSlider/RangeSlider";
-import { usePriceSorting } from "@/contexts/priceContext";
+import usePriceStore from "@/stores/usePriceStore";
 
 const Price = ({ isPriceOpen, setIsPriceOpen }) => {
   
-  const {priceValue, setPriceValue} = usePriceSorting()
+  const {priceValue, setPriceValue} = usePriceStore()
 
   const togglePrice = (e) => {
     e.stopPropagation();

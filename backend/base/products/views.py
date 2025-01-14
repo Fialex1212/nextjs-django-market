@@ -3,6 +3,7 @@ from rest_framework import viewsets
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
+from rest_framework.pagination import PageNumberPagination
 from .serializers import (
     PromoCodeSerializer,
     CategorySerializer,
@@ -109,14 +110,20 @@ class ProductDetailView(APIView):
             for product in products
         ]
         
+class ProductsPagination(PageNumberPagination):
+    page_size = 10 
+
 class ProductsSearchView(APIView):
     def get(self, request):
-        query = request.GET.get('query', '')
+        query = request.GET.get('query', '').strip()
         if query:
             results = Product.objects.filter(title__icontains=query)
-            serializer = ProductSerializer(results, many=True)
-            return Response(serializer.data, status=status.HTTP_200_OK)
-        return Response([])
+            paginator = ProductsPagination()
+            paginated_results = paginator.paginate_queryset(results, request)
+            serializer = ProductSerializer(paginated_results, many=True)
+            return paginator.get_paginated_response(serializer.data)
+        
+        return Response({"message": "No query provided or no results found"}, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['POST'])
 def apply_promo_code(req):

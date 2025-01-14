@@ -1,7 +1,7 @@
 import { useState } from "react";
 import css from "./style.module.css";
 import axios from "axios";
-import toaster, { Toaster } from "react-hot-toast";
+import toaster from "react-hot-toast";
 
 const EmailSender = () => {
   const [formData, setFormData] = useState({
@@ -38,7 +38,6 @@ const EmailSender = () => {
 
   return (
     <section className={css.email}>
-      <Toaster />
       <div className="container">
         <div className={css.email__sender}>
           <h2 className={css.email__title}>

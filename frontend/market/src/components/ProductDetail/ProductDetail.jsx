@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 import css from "./style.module.css"
-import Image from "next/image";
 import axios from "axios";
 import ProductShowcase from "./ProductShowcase"
 import ProductTabs from "./ProductTabs";

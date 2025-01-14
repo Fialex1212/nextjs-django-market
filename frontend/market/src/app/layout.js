@@ -2,11 +2,6 @@ import "./globals.css";
 import cn from "classnames";
 import localfont from "next/font/local";
 import { siteMetadata } from "@/app/utils/metadata";
-import { PriceSortingProvider } from "@/contexts/priceContext";
-import { ColorsSortingProvider } from "@/contexts/colorsContext";
-import { SizesSortingProvider } from "@/contexts/sizesContext";
-import { StylesSortingProvider } from "@/contexts/stylesContext";
-import { BrandsSortingProvider } from "@/contexts/brandsContext";
 
 const satoshi = localfont({
   src: [
@@ -88,18 +83,10 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en" className={cn(satoshi.className, integralCF.className)}>
-      <head><link rel="icon" href="/static/icons/black-logo.svg"></link></head>
-        <PriceSortingProvider>
-          <ColorsSortingProvider>
-            <SizesSortingProvider>
-              <StylesSortingProvider>
-                <BrandsSortingProvider>
-                  <body>{children}</body>
-                </BrandsSortingProvider>
-              </StylesSortingProvider>
-            </SizesSortingProvider>
-          </ColorsSortingProvider>
-        </PriceSortingProvider>
+      <head>
+        <link rel="icon" href="/static/icons/black-logo.svg"></link>
+      </head>
+      <body>{children}</body>
     </html>
   );
 }

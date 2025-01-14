@@ -1,9 +1,8 @@
-import { useStylesSorting } from "@/contexts/stylesContext";
 import { stylesData } from "../../utils";
 import css from "./style.module.css";
 import cn from "classnames";
-import Link from "next/link";
-import toast, {Toastre} from "react-hot-toast";
+import toast from "react-hot-toast";
+import useStylesStore from "@/stores/useStylesStore";
 
 const Styles = ({ isStylesOpen, setIsStylesOpen }) => {
   const toggleStyles = (e) => {
@@ -11,7 +10,7 @@ const Styles = ({ isStylesOpen, setIsStylesOpen }) => {
     setIsStylesOpen(!isStylesOpen);
   };
 
-  const { selectedStyles, setSelectedStyles } = useStylesSorting();
+  const { selectedStyles, setSelectedStyles } = useStylesStore();
 
   const handleStyleClick = (name) => {
     if (selectedStyles.includes(name)) {

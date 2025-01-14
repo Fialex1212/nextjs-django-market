@@ -12,12 +12,11 @@ import { Rating } from "@smastrom/react-rating";
 import "@smastrom/react-rating/style.css";
 import axios from "axios";
 import useCart from "@/hooks/useCart";
-import { Toaster } from "react-hot-toast";
-import { usePriceSorting } from "@/contexts/priceContext";
-import { useColorsSorting } from "@/contexts/colorsContext";
-import { useSizesSorting } from "@/contexts/sizesContext";
-import { useStylesSorting } from "@/contexts/stylesContext";
 import Sortby from "./Sortby/Sortby";
+import useColorsStore from "@/stores/useColorsStore";
+import useSizesStore from "@/stores/useSizesStore";
+import useStylesStore from "@/stores/useStylesStore";
+import usePriceStore from "@/stores/usePriceStore";
 
 const Products = ({ toggleFilters }) => {
   const router = useRouter();
@@ -30,11 +29,11 @@ const Products = ({ toggleFilters }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [filteredProducts, setFilteredProducts] = useState([]);
   const itemsPerPage = 9;
-  const { priceValue } = usePriceSorting();
+  const { selectedColors } = useColorsStore();
+  const { selectedSizes } = useSizesStore();
+  const { selectedStyles } = useStylesStore();
+  const { priceValue } = usePriceStore();
   const [minPrice, maxPrice] = priceValue;
-  const { selectedColors } = useColorsSorting();
-  const { selectedSizes } = useSizesSorting();
-  const { selectedStyles } = useStylesSorting();
 
   useEffect(() => {
     const filterUpdatedProducts = products.filter((product) => {
@@ -145,22 +144,11 @@ const Products = ({ toggleFilters }) => {
     handleSelect("Low to High");
   }, []);
 
-  const handleNextPage = () => {
-    setCurrentPage((prevPage) => prevPage + 1);
-  };
-
-  const handlePreviousPage = () => {
-    if (currentPage > 1) {
-      setCurrentPage((prevPage) => prevPage - 1);
-    }
-  };
-
   return (
     //{
     //  [css.add__width]: filteredProducts.length === 0,
     //}
     <div className={cn(css.products)}>
-      <Toaster />
       <div className={css.products__params}>
         <h3 className={css.products__title}>{selectedValue}</h3>
         <Sortby handleSelect={handleSelect} toggleDropdown={toggleDropdown} setIsOpenDropdown={setIsOpenDropdown} isOpenDropdown={isOpenDropdown} />

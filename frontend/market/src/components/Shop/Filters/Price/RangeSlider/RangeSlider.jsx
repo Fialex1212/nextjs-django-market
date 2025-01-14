@@ -16,7 +16,8 @@ const RangeSlider = ({ priceValue, setPriceValue }) => {
           trackClassName={css.track}
           value={priceValue}
           onChange={handleChange}
-          min={0}
+          min={1}
+          step={3}
           max={1000}
           renderThumb={(props, state) => (
             <div {...props} className={css.thumb}>
@@ -28,7 +29,7 @@ const RangeSlider = ({ priceValue, setPriceValue }) => {
               {...props}
               className={
                 state.index === 1 ? css.trackActive : css.trackInactive
-              } // Apply different styles to the active (between thumbs) and inactive tracks
+              }
             />
           )}
         />

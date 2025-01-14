@@ -1,16 +1,11 @@
 import { colorsData } from "../../utils";
 import css from "./style.module.css";
 import cn from "classnames";
-import toast, { Toaster } from "react-hot-toast";
-import { useColorsSorting } from "@/contexts/colorsContext";
+import toast from "react-hot-toast";
+import useColorsStore from "@/stores/useColorsStore";
 
-const Colors = ({
-  isColorsOpen,
-  setIsColorsOpen,
-}) => {
-
-  const {selectedColors, setSelectedColors} = useColorsSorting()
-
+const Colors = ({ isColorsOpen, setIsColorsOpen }) => {
+  const { selectedColors, setSelectedColors } = useColorsStore();
 
   const darkenColor = (color) => {
     let num = parseInt(color, 16);
@@ -40,7 +35,10 @@ const Colors = ({
 
   return (
     <div className={css.filters__colors}>
-      <h4 className={cn(css.filters__title, { [css.active]: isColorsOpen })} onClick={toggleColors}>
+      <h4
+        className={cn(css.filters__title, { [css.active]: isColorsOpen })}
+        onClick={toggleColors}
+      >
         Colors
       </h4>
       {isColorsOpen && (

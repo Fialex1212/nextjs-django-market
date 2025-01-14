@@ -1,15 +1,21 @@
-.reviews{
-    margin-bottom: 50px;
+.reviews {
+  margin-bottom: 50px;
 }
 
-.reviews__title{
-    font-size: 48px;
-    font-family: 'IntegralCF';
-    margin-bottom: 40px;
+.reviews__title {
+  font-size: var(--fz-xxmedium);
+  font-family: "IntegralCF";
+  margin-bottom: 40px;
 }
 
 @media screen and (min-width: 768px) {
-    .reviews{
-        margin-bottom: 80px;
-    }
+  .reviews {
+    margin-bottom: 80px;
+  }
+
+  .reviews__title {
+    font-size: var(--fz-section-title);
+    font-family: "IntegralCF";
+    margin-bottom: 40px;
+  }
 }

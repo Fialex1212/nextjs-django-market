@@ -2,13 +2,11 @@ import { brandsData } from "../../utils";
 import css from "./style.module.css";
 import cn from "classnames";
 import toast from "react-hot-toast";
-import { useBrandsSorting } from "@/contexts/brandsContext";
-
+import useBrandsStore from "@/stores/useBrandsStore";
 
 const Brands = ({ isBrandsOpen, setIsBrendsOpen }) => {
+  const { selectedBrands, setSelectedBrands } = useBrandsStore();
 
-  const { selectedBrands, setSelectedBrands } = useBrandsSorting();
-  
   const handleBrandClick = (name) => {
     if (selectedBrands.includes(name)) {
       setSelectedBrands(selectedBrands.filter((brand) => brand !== name));

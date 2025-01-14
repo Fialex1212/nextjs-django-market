@@ -36,9 +36,6 @@ const Search = () => {
           </label>
         </form>
       </div>
-      <button className={css.search__button} onClick={togglePopup}>
-        <Image className={css.search__icon} src={searchDark} alt="search" />
-      </button>
     </div>
   );
 };

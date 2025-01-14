@@ -66,13 +66,6 @@ const Header = () => {
               setIsSideBarDropDownMenu={setIsSidebarDropDownMenu}
               toggelSidebarDropDown={toggelSidebarDropDown}
             />
-            <button
-              onClick={toggleSidebar}
-              className={css.header__menu}
-              href="/"
-            >
-              <Image src={menu} alt="menu" />
-            </button>
             <Link href="/" className={css.header__logo}>
               <Image src={logo} alt="logo" />
             </Link>
@@ -112,7 +105,9 @@ const Header = () => {
             </ul>
           </nav>
           <div className={css.header__interface}>
-            <Search />
+            <div className={css.search__wrapper}>
+              <Search />
+            </div>
             <Cart />
             {isAuthenticated ? (
               <Link href="/profile">
@@ -135,7 +130,17 @@ const Header = () => {
                 />
               </Link>
             )}
+            <button
+              onClick={toggleSidebar}
+              className={css.header__menu}
+              href="/"
+            >
+              <Image src={menu} alt="menu" />
+            </button>
           </div>
+        </div>
+        <div className={css.search__mobile}>
+          <Search />
         </div>
       </div>
     </header>

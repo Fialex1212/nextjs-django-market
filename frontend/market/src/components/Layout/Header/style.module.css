@@ -5,6 +5,7 @@
 .header__inner{
     display: flex;
     justify-content: space-between;
+    margin-bottom: 30px;
 }
 
 .header__nav{
@@ -117,11 +118,16 @@
 .header__interface{
     display: flex;
     justify-content: flex-end;
+    align-items: center;
     column-gap: 12px;
     width: 100%;
 }
 
-@media screen and (min-width: 768px){
+.search__wrapper{
+    display: none;
+}
+
+@media screen and (min-width: 920px){
 
     .header__item{
         display: flex;
@@ -132,6 +138,10 @@
     .header__interface{
         display: flex;
         align-items: center;
+    }
+
+    .header__inner{
+        flex-direction: row;
     }
 
     .header__nav{
@@ -158,5 +168,15 @@
     .input__inner{
         width: 100%;
         max-width: 577px;
+    }
+}
+
+@media screen and (min-width: 592px){
+    .search__wrapper{
+        display: block;
+    }
+
+    .search__mobile{
+        display: none;
     }
 }

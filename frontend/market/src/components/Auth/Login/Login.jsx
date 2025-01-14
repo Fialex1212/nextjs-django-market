@@ -5,7 +5,6 @@ import css from "./style.module.css";
 import Link from "next/link";
 import cn from "classnames";
 import { useRouter } from "next/navigation";
-import { Toaster } from "react-hot-toast";
 import { useAuthStore } from "../../../stores/useAuthStore";
 
 const Login = () => {
@@ -41,7 +40,6 @@ const Login = () => {
 
   return (
     <section className={css.login}>
-      <Toaster />
       <div className={cn(css.login__container, "container")}>
         <div className={css.login__wrapper}>
           <h2 className={css.login__title}>Login</h2>
