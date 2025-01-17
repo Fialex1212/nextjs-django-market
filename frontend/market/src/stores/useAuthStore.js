@@ -7,10 +7,13 @@ export const useAuthStore = create((set) => {
 
   return {
     user: parsedUser,
-    isAuthenticated: false,
+    isAuthenticated: parsedUser ? true : false,
     isLoading: false,
     isPopup: false,
-    setIsPopup: (value) => set((state) => ({ isPopup: value !== undefined ? value : !state.isPopup })),
+    setIsPopup: (value) =>
+      set((state) => ({
+        isPopup: value !== undefined ? value : !state.isPopup,
+      })),
     login: async (data) => {
       try {
         const response = await axios.post(
@@ -41,7 +44,6 @@ export const useAuthStore = create((set) => {
         localStorage.removeItem("userData");
         set({ user: null, isAuthenticated: false });
         console.log(response.data);
-        
       } catch (error) {
         throw error;
       }

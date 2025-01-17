@@ -9,11 +9,12 @@ import { useAuthStore } from "../../../stores/useAuthStore";
 
 const Login = () => {
   const router = useRouter();
-  const { isAuthenticated, login } = useAuthStore();
+  const { login } = useAuthStore();
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handleChange = (e) => {
     setFormData({
@@ -25,18 +26,13 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      login(formData);
+      await  login(formData);
       router.push("/");
     } catch (error) {
+      setErrorMessage("Login failed. Please check your credentials.")
       console.log(error);
     }
   };
-
-  useEffect(() => {
-    if (isAuthenticated) {
-      router.push("/");
-    }
-  }, [isAuthenticated]);
 
   return (
     <section className={css.login}>

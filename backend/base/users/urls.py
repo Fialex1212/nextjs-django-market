@@ -7,7 +7,8 @@ from .views import (
 
     UserListCreateView, 
     UserDetailView, 
-    UserUpdateView
+    UserUpdateView,
+    VerifyToken
 )
 
 urlpatterns = [
@@ -20,5 +21,6 @@ urlpatterns = [
     #User info
     path('list/', UserListCreateView.as_view(), name='get_users'),
     path('user/<str:id>/', UserDetailView.as_view(), name='get_user'),
-    path('user/update/', UserUpdateView.as_view(), name='update_user')
+    path('user/update/', UserUpdateView.as_view(), name='update_user'),
+    path('verify-token/', VerifyToken.as_view(), name="verify token     "),
 ]
