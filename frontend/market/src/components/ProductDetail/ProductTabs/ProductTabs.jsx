@@ -1,9 +1,13 @@
+"use client";
+
 import { useState, useEffect } from "react";
 import cn from "classnames";
 import css from "./style.module.css";
 import { tabsData } from "../utils";
 import Accordion from "./Accordion/Accordion";
 import Reviews from "./Reviews/Reviews";
+import Image from "next/image";
+import size_guide from "@/app/static/images/product/size_guide.jpg";
 
 const ProductTabs = ({ product }) => {
   const [activeTab, setActiveTab] = useState("productDetail");
@@ -51,7 +55,20 @@ const ProductTabs = ({ product }) => {
                   )}
                 </ul>
               ) : (
-                <p>None</p>
+                <div className={css.product__detail}>
+                  <div className={css.product__size__guide__wrapper}>
+                    <Image
+                      className={css.product__size__guide}
+                      src={size_guide}
+                      alt="size guide"
+                      width={500}
+                      height={300}
+                    />
+                  </div>
+                  <p className={css.product__materials}>
+                    Materials: {product.materials}
+                  </p>
+                </div>
               )}
             </div>
           )}

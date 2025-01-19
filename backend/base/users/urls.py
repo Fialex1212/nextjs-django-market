@@ -4,23 +4,21 @@ from .views import (
     VerifyEmailView,
     LoginView,
     LogoutView,
-
-    UserListCreateView, 
-    UserDetailView, 
+    UserListCreateView,
+    UserDetailView,
     UserUpdateView,
-    VerifyToken
+    VerifyToken,
 )
 
 urlpatterns = [
-    #Sign-up/Sign-in
-    path('login/', LoginView.as_view(), name='login'),
-    path('logout/', LogoutView.as_view(), name='logout'),
-    path('register/', RegisterView.as_view(), name='register'),
-    path('register/verify/', VerifyEmailView.as_view(), name="verify_email"),
-
-    #User info
-    path('list/', UserListCreateView.as_view(), name='get_users'),
-    path('user/<str:id>/', UserDetailView.as_view(), name='get_user'),
-    path('user/update/', UserUpdateView.as_view(), name='update_user'),
-    path('verify-token/', VerifyToken.as_view(), name="verify token     "),
+    # Sign-up/Sign-in
+    path("login/", LoginView.as_view(), name="login"),
+    path("logout/", LogoutView.as_view(), name="logout"),
+    path("register/", RegisterView.as_view(), name="register"),
+    path("register/verify/", VerifyEmailView.as_view(), name="verify_email"),
+    # User info
+    path("list/", UserListCreateView.as_view(), name="get_users"),
+    path("user/<str:id>/", UserDetailView.as_view(), name="get_user"),
+    path("user/update/", UserUpdateView.as_view(), name="update_user"),
+    path("verify-token/", VerifyToken.as_view(), name="verify token     "),
 ]

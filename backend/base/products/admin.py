@@ -1,12 +1,5 @@
 from django.contrib import admin
-from .models import (
-    PromoCode,
-    Category,
-    Size,
-    Color, 
-    Product,
-    Image
-)
+from .models import PromoCode, Category, Size, Color, Product, Image
 
 admin.site.register(PromoCode)
 admin.site.register(Category)

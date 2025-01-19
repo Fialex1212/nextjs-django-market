@@ -18,43 +18,43 @@ from django.shortcuts import get_list_or_404, get_object_or_404
 
 
 # Views for category
-class CategoryListCreateView(generics.ListCreateAPIView):
+class CategoryListCreateView(generics.ListAPIView):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
 
 
-class CategoryDetailView(generics.RetrieveUpdateDestroyAPIView):
+class CategoryDetailView(generics.RetrieveAPIView):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
     lookup_field = "id"
 
 
 # Views for Color
-class ColorListCreateView(generics.ListCreateAPIView):
+class ColorListCreateView(generics.ListAPIView):
     queryset = Color.objects.all()
     serializer_class = ColorSerializer
 
 
-class ColorDetailView(generics.RetrieveUpdateDestroyAPIView):
+class ColorDetailView(generics.RetrieveAPIView):
     queryset = Color.objects.all()
     serializer_class = ColorSerializer
     lookup_field = "id"
 
 
 # Views for Size
-class SizeListCreateView(generics.ListCreateAPIView):
+class SizeListCreateView(generics.ListAPIView):
     queryset = Size.objects.all()
     serializer_class = SizeSerializer
 
 
-class SizeDetailView(generics.RetrieveUpdateDestroyAPIView):
+class SizeDetailView(generics.RetrieveAPIView):
     queryset = Size.objects.all()
     serializer_class = SizeSerializer
     lookup_field = "id"
 
 
 # View for Products
-class ProductsListCreateView(generics.ListCreateAPIView):
+class ProductsListCreateView(generics.ListAPIView):
     serializer_class = ProductSerializer
 
     def get_queryset(self):
@@ -113,6 +113,7 @@ class ProductDetailView(APIView):
             "availability_status": product.availability_status,
             "sex": product.sex,
             "reviews": review_data,
+            "materials": product.materials,
         }
 
 

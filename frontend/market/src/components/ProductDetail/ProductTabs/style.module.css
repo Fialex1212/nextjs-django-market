@@ -42,8 +42,32 @@
     border-bottom: 2px solid #000;
 }
 
+.product__detail{
+    display: flex;
+    flex-direction: column;
+}
+
+.product__size__guide__wrapper{
+    width: 100%;
+    height: auto;
+    margin: 0 auto;
+}
+
+.product__size__guide{
+    width: 100%;
+    height: auto;
+}
+
+.product__materials{
+    font-size: var(--fz-medium);
+}
+
 @media screen and (min-width: 768px) {
     .tabs__content{
         margin-bottom: 64px;
+    }
+
+    .product__size__guide__wrapper{
+        width: 70%;
     }
 }
