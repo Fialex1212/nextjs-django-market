@@ -2,8 +2,10 @@ import { useState, useEffect } from "react";
 import cn from "classnames";
 import css from "./style.module.css";
 import { tabsData } from "../utils";
+import Accordion from "./Accordion/Accordion";
+import Reviews from "./Reviews/Reviews";
 
-const ProductTabs = () => {
+const ProductTabs = ({ product }) => {
   const [activeTab, setActiveTab] = useState("productDetail");
 
   const handleTabClick = (tabKey) => {
@@ -11,9 +13,9 @@ const ProductTabs = () => {
   };
 
   useEffect(() => {
-    setActiveTab("productDetail")
-  }, [])
-  
+    setActiveTab("productDetail");
+  }, []);
+
   return (
     <div className={css.tabs__container}>
       <div className={css.tabs__header}>
@@ -35,26 +37,21 @@ const ProductTabs = () => {
         <div className={css.tabs__contentItem}>
           {tabsData[activeTab] && (
             <div>
-              <h2>{tabsData[activeTab].title}</h2>
-              {Array.isArray(tabsData[activeTab].content) ? (
+              <h2 className={css.tabs__title}>{tabsData[activeTab].title}</h2>
+              {activeTab === "reviews" ? (
+                <Reviews product={product} />
+              ) : activeTab === "faqs" ? (
                 <ul>
-                  {tabsData[activeTab].content.map((item, index) => (
-                    <li key={index}>
-                      {item.user ? (
-                        <>
-                          <strong>{item.user}:</strong> {item.review} (Rating:{" "}
-                          {item.rating})
-                        </>
-                      ) : (
-                        <>
-                          <strong>{item.question}:</strong> {item.answer}
-                        </>
-                      )}
-                    </li>
-                  ))}
+                  {tabsData[activeTab].content.map(
+                    ({ title, content }, index) => (
+                      <li key={index}>
+                        <Accordion title={title} content={content} />
+                      </li>
+                    )
+                  )}
                 </ul>
               ) : (
-                <p>{tabsData[activeTab].content}</p>
+                <p>None</p>
               )}
             </div>
           )}

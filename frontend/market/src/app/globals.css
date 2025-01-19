@@ -160,9 +160,40 @@ legend {
 body {
   font-family: 'Satoshi';
   color: var(--black);
-  background: var(white);
+  background: var(--white);
 }
 
 main{
   min-height: 50vh;
+}
+
+.mySwiperBottom{
+  margin-bottom: 10px;
+  max-width: 400px;
+  width: 100%;
+  max-height: 400px;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  padding: 10px;  
+}
+
+.mySwiperThumb .swiper-slide{
+  width: 100px !important;
+  height: 100%;
+  overflow: hidden;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  border: 2px solid transparent;
+}
+
+.mySwiperThumb .swiper-slide-thumb-active{
+  border: 2px solid black;
+}
+
+.mySwiperThumb .swiper-wrapper{
+  display: flex;
+  justify-content: space-between;
 }

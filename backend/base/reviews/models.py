@@ -1,6 +1,7 @@
 from django.db import models
 from users.models import CustomUser
 from products.models import Product
+from django.utils import timezone
 import uuid
 from django.core.validators import MaxValueValidator, MinValueValidator
 
@@ -13,6 +14,7 @@ class ReviewProduct(models.Model):
         MinValueValidator(1)
     ])
     text = models.TextField()
+    created_at = models.DateTimeField(default=timezone.now)
     
     def __str__(self):
         return f"{self.user}, {self.good}, {self.rating}"

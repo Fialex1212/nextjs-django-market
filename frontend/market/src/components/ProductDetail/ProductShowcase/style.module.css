@@ -11,6 +11,12 @@
     margin-bottom: 20px;
 }
 
+.slider__wrapper{
+    max-width: 768px;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
 .product__info{
     width: 100%;
 }
@@ -66,10 +72,21 @@
     border-radius: 20px;
 }
 
+@media screen and (min-width: 200px) {
+
+    .product__image{
+        height: 200px;
+    }
+}
+
 @media screen and (min-width: 400px) {
     .product__image {
         max-width: 358px;
         max-height: 440px;
+    }
+
+    .product__image{
+        height: 280px;
     }
 }
 
@@ -77,6 +94,10 @@
     .product__image {
         max-width: 400px;
         max-height: 460px;
+    }
+
+    .product__image{
+        height: 380px;
     }
 }
 

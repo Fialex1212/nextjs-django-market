@@ -5,7 +5,7 @@ import Link from "next/link";
 import { goodsData } from "./utils";
 import Slider from "../Slider";
 
-const Showcase = ({ title }) => {
+const Showcase = ({ title, isButton }) => {
   return (
     <section className={css.showcase}>
       <div className={css.showcase__container}>
@@ -31,11 +31,13 @@ const Showcase = ({ title }) => {
             },
           }}
         />
-        <button className={css.showcase__button}>
-          <Link className={css.showcase__link} href="/shop">
-            View All
-          </Link>
-        </button>
+        {isButton && (
+          <button className={css.showcase__button}>
+            <Link className={css.showcase__link} href="/shop">
+              View All
+            </Link>
+          </button>
+        )}
       </div>
     </section>
   );

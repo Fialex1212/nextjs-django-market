@@ -29,7 +29,7 @@ class ReviewDeteleSerializer(serializers.ModelSerializer):
 class ReviewProductDetailListSerializer(serializers.ModelSerializer):
     class Meta:
         model = ReviewProduct
-        fields = ["id", "good", "user", "rating", "text"]
+        fields = ["id", "good", "user", "rating", "text", "created_at"]
 
 class ReviewProductCreateUpdateSerializer(serializers.ModelSerializer):
     class Meta:

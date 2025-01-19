@@ -46,6 +46,9 @@ class Color(models.Model):
     
     def __str__(self):
         return f"{self.name}"
+    
+class Image(models.Model):
+    image = models.ImageField(upload_to="uploads/products/")
 
 class Product(models.Model):
     STATUS_CHOICES = [
@@ -62,6 +65,7 @@ class Product(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     title = models.CharField(max_length=124)
     image = models.ImageField(upload_to="uploads/products/", max_length=255, blank=True, null=True)
+    images = models.ManyToManyField(Image, related_name="products", blank=True)
     rating = models.IntegerField(
         validators=[
             MinValueValidator(0.0),

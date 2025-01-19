@@ -1,0 +1,25 @@
+.accordion{
+    border-radius: 20px;
+    padding: 24px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;    
+}
+
+.accordion__header{
+    display: flex;
+    justify-content: space-between;
+    font-size: var(--fz-xxmedium);
+    cursor: pointer;
+}
+
+.accordion__content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease, padding-top 0.3s ease;
+    font-size: var(--fz-xmedium);
+}
+
+.accordion__content.active {
+    max-height: 500px;
+    padding-top: 10px;
+}

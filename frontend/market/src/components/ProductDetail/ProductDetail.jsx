@@ -4,8 +4,9 @@ import { useEffect, useState } from "react";
 import css from "./style.module.css"
 import axios from "axios";
 import ProductShowcase from "./ProductShowcase"
-import ProductTabs from "./ProductTabs";
+import ProductTabs from "./ProductTabs/ProductTabs";
 import SimilarProducts from "./SimilarProducts";
+import Showcase from "../Showcase";
 
 const ProductDetail = ({ category, sex, id }) => {
   const [product, setProduct] = useState({});
@@ -16,7 +17,7 @@ const ProductDetail = ({ category, sex, id }) => {
         const response = await axios.get(
           `http://localhost:8000/api/products/${category}/${sex}/${id}/`
         );
-        setProduct(response.data[0]);
+        setProduct(response.data);
         console.log(response.data);
       } catch (err) {
         console.error("Error fetching product:", err);
@@ -37,8 +38,9 @@ const ProductDetail = ({ category, sex, id }) => {
       <div className="container">
         <div className={css.product__inner}>
           <ProductShowcase product={product} />
-          <ProductTabs />
-          <SimilarProducts />
+          <ProductTabs product={product} />
+          <SimilarProducts product={product}/>
+          <Showcase isButton={false} />
         </div>
       </div>
     </section>

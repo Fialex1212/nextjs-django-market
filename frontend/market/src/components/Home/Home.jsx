@@ -10,8 +10,8 @@ const Home = () => {
     <>
       <Banner />
       <Brands />
-      <Showcase title={"NEW ARRIVALS"} />
-      <Showcase title={"top selling"} />
+      <Showcase title={"NEW ARRIVALS"} isButton={true} />
+      <Showcase title={"top selling"} isButton={true} />
       <Catalog data={catalogData} />
       <Reviews />
     </>

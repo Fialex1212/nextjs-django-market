@@ -6,8 +6,8 @@ import os
 load_dotenv()
 
 BASE_DIR = Path(__file__).resolve().parent.parent
-SECRET_KEY = 'django-insecure-0n0yjyaf8vvo@hv175!k=+ozx%lln-3n^4ip3s&v_^53ki&f10'
-DEBUG = True
+SECRET_KEY = os.environ.get("SECRET_KEY")
+DEBUG = os.environ.get("DEBUG")
 ALLOWED_HOSTS = ['*']
 
 INSTALLED_APPS = [
@@ -69,6 +69,18 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
+#To postgreSQL
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': os.environ.get('POSTGRES_DB'),       
+#         'USER': os.environ.get('POSTGRES_USER'),      
+#         'PASSWORD': os.environ.get('POSTGRES_PASSWORD'),
+#         'HOST': os.environ.get('DB_HOST', 'localhost'),
+#         'PORT': os.environ.get('DB_PORT', '5432'),     
+#     }
+# }
 
 AUTH_PASSWORD_VALIDATORS = [
     {
